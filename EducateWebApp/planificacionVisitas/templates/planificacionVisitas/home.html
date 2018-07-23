@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <img id="image" src="{% static "img/presentacion.png" %}" onload="resizeToMax(this.id)">
+{% endblock %}

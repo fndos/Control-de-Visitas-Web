@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% include 'planificacionVisitas/subordinados/_header.html' with active='taken' %}
+  <div class="card">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th>Visita</th>
+          <th>Subject</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for taken_visita in taken_visitas %}
+          <tr>
+            <td>{{ taken_visita.visita.name }}</td>
+            <td>{{ taken_visita.visita.subject.get_html_badge }}</td>
+            <td>{{ taken_visita.score }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td class="bg-light text-center font-italic" colspan="3">You haven't completed any quiz yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
