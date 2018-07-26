@@ -21,7 +21,7 @@ python manage.py migrate --run-syncdb
 
 ```
 
-Finalmente, corre el servidor
+Finalmente, correr el servidor
 
 ```bash
 python manage.py runserver
