@@ -1,9 +1,9 @@
-## Ejecutar el proyecto localmente
+## Control de Visitas (Web)
 
 Primero, clonar el repositorio:
 
 ```bash
-git clone https://github.com/sibtc/django-multiple-user-types-example.git
+git clone https://github.com/fndos/Control-de-Visitas-Web.git
 ```
 
 Instalar los requerimientos
@@ -15,21 +15,16 @@ pip3 install -r requirements.txt
 Crear la base de datos
 
 ```bash
-python3 manage.py makemigrations
+python manage.py makemigrations
 
-python3 manage.py migrate --run-syncdb
+python manage.py migrate --run-syncdb
 
 ```
 
 Finalmente, corre el servidor
 
 ```bash
-python3 manage.py runserver
+python manage.py runserver
 ```
 
 El proyecto estara en: **127.0.0.1:8000**.
-
-
-## License
-
-Propietario???
