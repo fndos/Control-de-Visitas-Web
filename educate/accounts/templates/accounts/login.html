@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'accounts/css/login.css' %}" type="text/css">
+{% endblock %}
+
+{% block body %}
+<div class="container" align="center">
+  <img src="{% static 'accounts/img/logo-educate.png' %}"/>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} <br> {{ field }}
+        </div>
+    {% endfor %}
+    <button class="btn btn-default" type="submit" name="button">Iniciar Sesión</button>
+  </form>
+</div>
+{% endblock %}

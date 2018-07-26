@@ -1,0 +1,35 @@
+body{
+    font-family: 'Raleway';
+}
+
+.container {
+    text-align:center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+button {
+  background: #ffb347 !important;
+  border-color: #ffb347 !important;
+  color: #fff !important;
+  width: 110px;
+  height: 35px;
+  margin: auto;
+}
+
+input {
+  margin: auto;
+}
+
+label {
+  font-weight: lighter;
+  color: #42a4f4;
+  text-align: left;
+}
+
+img, .fieldWrapper {
+  margin-bottom: 30px;
+  padding-right: 5px;
+}
