@@ -9,7 +9,7 @@ git clone https://github.com/fndos/Control-de-Visitas-Web.git
 Instalar los requerimientos
 
 ```bash
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Crear la base de datos
