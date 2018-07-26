@@ -27,4 +27,4 @@ Finalmente, correr el servidor
 python manage.py runserver
 ```
 
-El proyecto estara en: **127.0.0.1:8000**.
+El proyecto estara en: **127.0.0.1:8000**
