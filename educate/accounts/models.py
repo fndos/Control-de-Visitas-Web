@@ -15,6 +15,9 @@ class User(AbstractUser):
 
     user_type = models.PositiveSmallIntegerField(null=True, choices=USER_TYPE_CHOICES)
 
+    def __str__(self):
+        return '{}'.format(self.first_name + " " +self.last_name)
+
 class Workday(models.Model):
     name = models.CharField(max_length=100)
 

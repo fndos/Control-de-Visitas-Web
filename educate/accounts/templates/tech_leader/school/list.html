@@ -1,9 +1,11 @@
 {% extends 'tech_leader/school/base.html' %}
 
 {% block content %}
-<h1>Registro de Escuelas</h1><hr>
-<a class="btn btn-success" href="{% url 'accounts:school_create' %}">Nuevo Registro<span class='glyphicon glyphicon-plus'></span></a>
-<table>
+<h1>Registro de Escuelas</h1>
+<a class="btn btn-success" href="{% url 'accounts:school_create' %}">Nuevo Registro &nbsp<span class='glyphicon glyphicon-plus'></span></a>
+<hr>
+{% if object_list %}
+<table class="table table-bordered">
   <thead>
     <tr>
       <td>AMIE</td>
@@ -24,7 +26,6 @@
   </thead>
   <tbody>
     <tr>
-      {% if object_list %}
       {% for school in object_list %}
       <td>{{ school.amie }}</td>
       <td>{{ school.name }}</td>
@@ -46,9 +47,10 @@
       </td>
     </tr>
     {% endfor %}
-    {% else %}
-    <h1>No hay registros que mostrar</h1>
-    {% endif %}
   </tbody>
 </table>
+{% else %}
+<h3>No hay registros que mostrar</h3>
+{% endif %}
+
 {% endblock%}
