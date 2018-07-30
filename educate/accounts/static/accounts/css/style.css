@@ -6,6 +6,11 @@ body{
 .container-fluid {
     text-align:center;
 }
+
+.active, .active:focus, .active:active, .active:target, .active:active:focus {
+    background-color: #f26f23 !important;
+}
+
 /*LOGO Y HEADER*/
 .my-header {
     max-height: 100px;
@@ -115,6 +120,7 @@ a:hover:focus, .my-logo{
 .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
     background-color: transparent;
 }
+
 /*------------------------------------------------------*/
 
 

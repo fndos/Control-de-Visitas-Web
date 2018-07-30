@@ -58,9 +58,10 @@
         <ul class="nav sidebar-nav">
           <li class="sidebar-brand"><a href="#">Control de Visitas</a></li>
           {% block sidebar %}
-          <li class="my-li-nav"><a href="#">Opcion 1</a></li>
-          <li class="my-li-nav"><a href="#">Opcion 2</a></li>
-          <li class="my-li-nav"><a href="#">Opcion 3</a></li>
+          <li class="my-li-nav"><a href="{% url 'accounts:user_list' %}">Usuarios</a></li>
+          <li class="my-li-nav"><a class="active" href="{% url 'accounts:school_list' %}">Escuelas</a></li>
+          <li class="my-li-nav"><a href="#">Visitas</a></li>
+          <li class="my-li-nav"><a href="#">Requerimientos</a></li>
           {% endblock %}
         </ul>
       </div>

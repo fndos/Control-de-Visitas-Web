@@ -1,0 +1,42 @@
+{% extends 'tech_leader/user/base.html' %}
+
+{% block content %}
+<h1>Registro de Usuarios</h1><hr>
+<a class="btn btn-success" href="{% url 'accounts:user_create' %}">Nuevo Registro<span class='glyphicon glyphicon-plus'></span></a>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td>Cédula</td>
+      <td>Nombre</td>
+      <td>Apellido</td>
+      <td>Usuario</td>
+      <td>Correo electrónico</td>
+      <td>Teléfono</td>
+      <td>Tipo de Usuario</td>
+      <td>Acciones</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% if object_list %}
+      {% for user in object_list %}
+      <td>{{ user.dni }}</td>
+      <td>{{ user.first_name }}</td>
+      <td>{{ user.last_name }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.phone_number }}</td>
+      <td>{{ user.user_type }}</td>
+      <td>
+        <a class="btn btn-primary" href="{% url 'accounts:user_show' user.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
+        <a class="btn btn-primary" href="{% url 'accounts:user_update' user.id %}"><span class='glyphicon glyphicon-edit'></span></a>
+        <a class="btn btn-danger" href="{% url 'accounts:user_delete' user.id %}"><span class='glyphicon glyphicon-trash'></span></a>
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No hay registros que mostrar</h1>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock%}

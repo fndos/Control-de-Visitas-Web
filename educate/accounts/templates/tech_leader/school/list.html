@@ -1,0 +1,54 @@
+{% extends 'tech_leader/school/base.html' %}
+
+{% block content %}
+<h1>Registro de Escuelas</h1><hr>
+<a class="btn btn-success" href="{% url 'accounts:school_create' %}">Nuevo Registro<span class='glyphicon glyphicon-plus'></span></a>
+<table>
+  <thead>
+    <tr>
+      <td>AMIE</td>
+      <td>Nombre</td>
+      <td>Teléfono</td>
+      <td>Dirección</td>
+      <td>Referencia</td>
+      <td>Parroquia</td>
+      <td>Prioridad</td>
+      <td>Estado</td>
+      <td>Fecha de creación</td>
+      <td>Creado por</td>
+      <td>Sector</td>
+      <td>Embajador IN</td>
+      <td>Jornada</td>
+      <td>Acciones</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% if object_list %}
+      {% for school in object_list %}
+      <td>{{ school.amie }}</td>
+      <td>{{ school.name }}</td>
+      <td>{{ school.phone_number }}</td>
+      <td>{{ school.address }}</td>
+      <td>{{ school.reference }}</td>
+      <td>{{ school.parish }}</td>
+      <td>{{ school.priority }}</td>
+      <td>{{ school.is_active }}</td>
+      <td>{{ school.date_joined }}</td>
+      <td>{{ school.created_by }}</td>
+      <td>{{ school.sector_id }}</td>
+      <td>{{ school.tutor_id }}</td>
+      <td>{{ school.workday_id}}</td>
+      <td>
+        <a class="btn btn-success" href="{% url 'accounts:school_show' school.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
+        <a class="btn btn-primary" href="{% url 'accounts:school_update' school.id %}"><span class='glyphicon glyphicon-edit'></span></a>
+        <a class="btn btn-danger" href="{% url 'accounts:school_delete' school.id %}"><span class='glyphicon glyphicon-trash'></span></a>
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No hay registros que mostrar</h1>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock%}

@@ -1,0 +1,21 @@
+{% extends 'tech_leader/school/base.html' %}
+
+{% block content %}
+<p><strong>AMIE: </strong>{{ object.amie }}</p>
+<p><strong>Nombre: </strong>{{ object.name }}</p>
+<p><strong>Teléfono: </strong>{{ object.phone_number }}</p>
+<p><strong>Dirección: </strong>{{ object.address }}</p>
+<p><strong>Referencia: </strong>{{ object.reference }}</p>
+<p><strong>Parroquia: </strong>{{ object.parish }}</p>
+<p><strong>Prioridad: </strong>{{ object.priority }}</p>
+<p><strong>Estado: </strong>{{ object.is_active }}</p>
+<p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
+<p><strong>Creado por: </strong>{{ object.created_by }}</p>
+<p><strong>Sector: </strong>{{ object.sector_id }}</p>
+<p><strong>Embajador IN: </strong>{{ object.tutor_id }}</p>
+<p><strong>Jornada: </strong>{{ object.workday_id }}</p>
+
+<a class="btn btn-success" href="{% url 'accounts:school_list' %}">Ok</a>
+<a class="btn btn-primary" href="{% url 'accounts:school_update' school.id %}">Editar</a>
+<a class="btn btn-danger" href="{% url 'accounts:school_delete' school.id %}">Eliminar</a>
+{% endblock%}

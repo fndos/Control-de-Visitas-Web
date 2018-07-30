@@ -1,0 +1,15 @@
+{% extends 'tech_leader/user/base.html' %}
+
+{% block content %}
+<p><strong>Cédula: </strong>{{ object.dni }}</p>
+<p><strong>Nombre: </strong>{{ object.first }}</p>
+<p><strong>Apellido: </strong>{{ object.last_name }}</p>
+<p><strong>Usuario: </strong>{{ object.username }}</p>
+<p><strong>Correo electrónico: </strong>{{ object.email }}</p>
+<p><strong>Teléfono: </strong>{{ object.phone_number }}</p>
+<p><strong>Tipo de usuario: </strong>{{ object.user_type }}</p>
+
+<a class="btn btn-success" href="{% url 'accounts:user_list' %}">Ok</a>
+<a class="btn btn-primary" href="{% url 'accounts:user_update' user.id %}">Editar</a>
+<a class="btn btn-danger" href="{% url 'accounts:user_delete' user.id %}">Eliminar</a>
+{% endblock%}
