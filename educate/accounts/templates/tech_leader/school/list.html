@@ -8,20 +8,20 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <td>AMIE</td>
-      <td>Nombre</td>
-      <td>Teléfono</td>
-      <td>Dirección</td>
-      <td>Referencia</td>
-      <td>Parroquia</td>
-      <td>Prioridad</td>
-      <td>Estado</td>
-      <td>Fecha de creación</td>
-      <td>Creado por</td>
-      <td>Sector</td>
-      <td>Embajador IN</td>
-      <td>Jornada</td>
-      <td>Acciones</td>
+      <td><strong>AMIE</strong></td>
+      <td><strong>Nombre</strong></td>
+      <td><strong>Teléfono</strong></td>
+      <td><strong>Dirección</strong></td>
+      <!--<td><strong>Referencia</strong></td>-->
+      <!--<td><strong>Parroquia</strong></td>-->
+      <td><strong>Prioridad</strong></td>
+      <td><strong>Estado</strong></td>
+      <!--<td><strong>Fecha de creación</strong></td>-->
+      <!--<td><strong>Creado por</strong></td>-->
+      <!--<td><strong>Sector</strong></td>-->
+      <td><strong>Embajador IN</strong></td>
+      <td><strong>Jornada</strong></td>
+      <td><strong>Acciones</strong></td>
     </tr>
   </thead>
   <tbody>
@@ -31,15 +31,43 @@
       <td>{{ school.name }}</td>
       <td>{{ school.phone_number }}</td>
       <td>{{ school.address }}</td>
-      <td>{{ school.reference }}</td>
-      <td>{{ school.parish }}</td>
-      <td>{{ school.priority }}</td>
-      <td>{{ school.is_active }}</td>
-      <td>{{ school.date_joined }}</td>
-      <td>{{ school.created_by }}</td>
-      <td>{{ school.sector_id }}</td>
+      <!--<td>{{ school.reference }}</td>-->
+      <!--<td>{{ school.parish }}</td>-->
+      <td>
+        {% if school.priority == True %}
+        Si
+        {% else %}
+        No
+        {% endif %}
+      </td>
+      <td>
+        {% if school.is_active == True %}
+        Activo
+        {% else %}
+        Inactivo
+        {% endif %}
+      </td>
+      <!--<td>{{ school.date_joined }}</td>-->
+      <!--<td>{{ school.created_by }}</td>-->
+      <!--<td>
+        {% if school.sector_id == 1 %}
+        Norte
+        {% elif school.sector_id == 2 %}
+        Centro
+        {% elif school.sector_id == 3 %}
+        Vía a la costa
+        {% else %}
+        Sur
+        {% endif %}
+      </td>-->
       <td>{{ school.tutor_id }}</td>
-      <td>{{ school.workday_id}}</td>
+      <td>
+        {% if school.workday_id == 1 %}
+        Matutina
+        {% else %}
+        Vespertina
+        {% endif %}
+      </td>
       <td>
         <a class="btn btn-success" href="{% url 'accounts:school_show' school.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
         <a class="btn btn-primary" href="{% url 'accounts:school_update' school.id %}"><span class='glyphicon glyphicon-edit'></span></a>

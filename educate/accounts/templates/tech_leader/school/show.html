@@ -7,13 +7,45 @@
 <p><strong>Dirección: </strong>{{ object.address }}</p>
 <p><strong>Referencia: </strong>{{ object.reference }}</p>
 <p><strong>Parroquia: </strong>{{ object.parish }}</p>
-<p><strong>Prioridad: </strong>{{ object.priority }}</p>
-<p><strong>Estado: </strong>{{ object.is_active }}</p>
+<p>
+  <strong>Prioridad: </strong>
+  {% if object.priority == True %}
+  Si
+  {% else %}
+  No
+  {% endif %}
+</p>
+<p>
+  <strong>Estado: </strong>
+  {% if object.is_active == True %}
+  Activo
+  {% else %}
+  Inactivo
+  {% endif %}
+</p>
 <p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
 <p><strong>Creado por: </strong>{{ object.created_by }}</p>
-<p><strong>Sector: </strong>{{ object.sector_id }}</p>
+<p>
+  <strong>Sector: </strong>
+  {% if object.sector_id == 1 %}
+  Norte
+  {% elif object.sector_id == 2 %}
+  Centro
+  {% elif object.sector_id == 3 %}
+  Vía a la costa
+  {% else %}
+  Sur
+  {% endif %}
+</p>
 <p><strong>Embajador IN: </strong>{{ object.tutor_id }}</p>
-<p><strong>Jornada: </strong>{{ object.workday_id }}</p>
+<p>
+  <strong>Jornada: </strong>
+  {% if object.workday_id == 1 %}
+  Matutina
+  {% else %}
+  Vespertina
+  {% endif %}
+</p>
 
 <a class="btn btn-success" href="{% url 'accounts:school_list' %}">Ok</a>
 <a class="btn btn-primary" href="{% url 'accounts:school_update' school.id %}">Editar</a>

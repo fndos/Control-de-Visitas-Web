@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
+from django.contrib.auth.hashers import make_password
 from django.db import models
 
 class User(AbstractUser):
@@ -14,6 +15,10 @@ class User(AbstractUser):
     )
 
     user_type = models.PositiveSmallIntegerField(null=True, choices=USER_TYPE_CHOICES)
+
+    def save(self, *args, **kwargs):
+        self.password = make_password(self.password)
+        super(User, self).save(*args, **kwargs)
 
     def __str__(self):
         return '{}'.format(self.first_name + " " +self.last_name)

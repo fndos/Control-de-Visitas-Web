@@ -9,14 +9,14 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <td>Cédula</td>
-      <td>Nombre</td>
-      <td>Apellido</td>
-      <td>Usuario</td>
-      <td>Correo electrónico</td>
-      <td>Teléfono</td>
-      <td>Tipo de Usuario</td>
-      <td>Acciones</td>
+      <td><strong>Cédula</strong></td>
+      <td><strong>Nombre</strong></td>
+      <td><strong>Apellido</strong></td>
+      <td><strong>Usuario</strong></td>
+      <td><strong>Correo electrónico</strong></td>
+      <td><strong>Teléfono</strong></td>
+      <td><strong>Tipo de Usuario</strong></td>
+      <td><strong>Acciones</strong></td>
     </tr>
   </thead>
   <tbody>
@@ -28,7 +28,17 @@
       <td>{{ user.username }}</td>
       <td>{{ user.email }}</td>
       <td>{{ user.phone_number }}</td>
-      <td>{{ user.user_type }}</td>
+      <td>
+        {% if user.user_type == 1 %}
+        tutor
+        {% elif user.user_type == 2 %}
+        tech
+        {% elif user.user_type == 3 %}
+        tutor_leader
+        {% else %}
+        tech_leader
+        {% endif %}
+      </td>
       <td>
         <a class="btn btn-success" href="{% url 'accounts:user_show' user.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
         <a class="btn btn-primary" href="{% url 'accounts:user_update' user.id %}"><span class='glyphicon glyphicon-edit'></span></a>

@@ -4,6 +4,7 @@ from . models import User, School
 class UserForm(forms.ModelForm):
 
     class Meta:
+
         model = User
         fields = [
             'dni',
@@ -30,10 +31,10 @@ class UserForm(forms.ModelForm):
             'first_name':forms.TextInput(attrs={'class':'form-control'}),
             'last_name':forms.TextInput(attrs={'class':'form-control'}),
             'username':forms.TextInput(attrs={'class':'form-control'}),
-            'password':forms.TextInput(attrs={'class':'form-control'}),
+            'password':forms.PasswordInput(attrs={'class':'form-control'}),
             'email':forms.TextInput(attrs={'class':'form-control'}),
             'phone_number':forms.TextInput(attrs={'class':'form-control'}),
-            'user_type':forms.TextInput(attrs={'class':'form-control'}),
+            'user_type':forms.Select(attrs={'class':'form-control'}),
         }
 
 class SchoolForm(forms.ModelForm):
