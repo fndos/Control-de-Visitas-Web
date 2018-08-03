@@ -15,15 +15,15 @@ from . decorators import tech_leader_required
 @login_required
 def LoginRedirect(request):
     user = request.user
-    args = {'user': user}
+    args = {'test': user}
     if user.user_type == 1: # tutor
-        return render(request, 'tutor/tutor.html', args)
+        return render(request, 'tutor/home.html', args)
     elif user.user_type == 2: # tech
-        return render(request, 'tech/tech.html', args)
+        return render(request, 'tech/home.html', args)
     elif user.user_type == 3: # tutor_leader
-        return render(request, 'tutor_leader/tutor_leader.html', args)
+        return render(request, 'tutor_leader/home.html', args)
     elif user.user_type == 4: # tech_leader
-        return render(request, 'tech_leader/user/base.html', args)
+        return render(request, 'tech_leader/home.html', args)
 
 ##############################    Users    #####################################
 

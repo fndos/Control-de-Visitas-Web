@@ -9,11 +9,11 @@
 <p><strong>Teléfono: </strong>{{ object.phone_number }}</p>
 <p>
   <strong>Tipo de usuario: </strong>
-  {% if user.user_type == 1 %}
+  {% if object.user_type == 1 %}
   tutor
-  {% elif user.user_type == 2 %}
+  {% elif object.user_type == 2 %}
   tech
-  {% elif user.user_type == 3 %}
+  {% elif object.user_type == 3 %}
   tutor_leader
   {% else %}
   tech_leader
@@ -21,6 +21,6 @@
 </p>
 
 <a class="btn btn-success" href="{% url 'accounts:user_list' %}">Ok</a>
-<a class="btn btn-primary" href="{% url 'accounts:user_update' user.id %}">Editar</a>
-<a class="btn btn-danger" href="{% url 'accounts:user_delete' user.id %}">Eliminar</a>
+<a class="btn btn-primary" href="{% url 'accounts:user_update' object.id %}">Editar</a>
+<a class="btn btn-danger" href="{% url 'accounts:user_delete' object.id %}">Eliminar</a>
 {% endblock%}

@@ -48,6 +48,6 @@
 </p>
 
 <a class="btn btn-success" href="{% url 'accounts:school_list' %}">Ok</a>
-<a class="btn btn-primary" href="{% url 'accounts:school_update' school.id %}">Editar</a>
-<a class="btn btn-danger" href="{% url 'accounts:school_delete' school.id %}">Eliminar</a>
+<a class="btn btn-primary" href="{% url 'accounts:school_update' object.id %}">Editar</a>
+<a class="btn btn-danger" href="{% url 'accounts:school_delete' object.id %}">Eliminar</a>
 {% endblock%}
