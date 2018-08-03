@@ -8,11 +8,13 @@ git clone https://github.com/fndos/Control-de-Visitas-Web.git
 
 Prerrequesitos:
 
-
+```bash
 pip3 install django-phonenumber-field
-
+```
 
 Crear base de datos "educate" con mysql
+
+
 
 Instalar los requerimientos
 
