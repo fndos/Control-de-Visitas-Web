@@ -12,6 +12,19 @@ nav {
   border-color: #ffb347 !important;
 }
 
+strong, label {
+  font-weight: 600 !important;
+  font-family: Helvetica !important;
+  font-size: 15px;
+}
+
+h3 {
+  font-family: Helvetica !important;
+}
+
+form > .btn {
+  margin-bottom: 20px;
+}
 .section-title {
   padding-top: 20px;
 }

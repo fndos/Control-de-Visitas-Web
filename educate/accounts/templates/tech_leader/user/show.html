@@ -1,6 +1,14 @@
 {% extends 'tech_leader/user/base.html' %}
 
 {% block content %}
+
+<div class="section-title">
+  <a class="btn btn-default" href="{% url 'accounts:user_list' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  <a class="btn btn-primary" href="{% url 'accounts:user_update' object.id %}"><span class='glyphicon glyphicon-edit'></span>&nbsp Editar</a>
+  <a class="btn btn-danger" href="{% url 'accounts:user_delete' object.id %}"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</a>
+  <hr>
+</div>
+
 <p><strong>Cédula: </strong>{{ object.dni }}</p>
 <p><strong>Nombre: </strong>{{ object.first_name }}</p>
 <p><strong>Apellido: </strong>{{ object.last_name }}</p>
@@ -20,7 +28,5 @@
   {% endif %}
 </p>
 
-<a class="btn btn-success" href="{% url 'accounts:user_list' %}">Ok</a>
-<a class="btn btn-primary" href="{% url 'accounts:user_update' object.id %}">Editar</a>
-<a class="btn btn-danger" href="{% url 'accounts:user_delete' object.id %}">Eliminar</a>
+<hr>
 {% endblock%}

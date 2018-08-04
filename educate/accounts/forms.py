@@ -66,9 +66,9 @@ class SchoolForm(forms.ModelForm):
             'is_active': 'Estado',
             'date_joined': 'Fecha de creación',
             'created_by': 'Creado por',
-            'sector_id': 'Sector',
-            'tutor_id': 'Embajador IN',
-            'workday_id': 'Jornada',
+            'sector': 'Sector',
+            'tutor': 'Embajador IN',
+            'workday': 'Jornada',
         }
         widgets = {
             'amie':forms.TextInput(attrs={'class':'form-control'}),
@@ -81,7 +81,7 @@ class SchoolForm(forms.ModelForm):
             'is_active':forms.TextInput(attrs={'class':'form-control'}),
             'date_joined':forms.TextInput(attrs={'class':'form-control'}),
             'created_by':forms.TextInput(attrs={'class':'form-control'}),
-            'sector_id':forms.Select(attrs={'class':'form-control'}),
-            'tutor_id':forms.Select(attrs={'class':'form-control'}),
-            'workday_id':forms.Select(attrs={'class':'form-control'}),
+            'sector':forms.Select(attrs={'class':'form-control'}),
+            'tutor':forms.Select(attrs={'class':'form-control'}),
+            'workday':forms.Select(attrs={'class':'form-control'}),
         }

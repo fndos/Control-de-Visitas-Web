@@ -1,9 +1,16 @@
 {% extends 'tech_leader/user/base.html' %}
 
 {% block content %}
+
+<div class="section-title">
+  <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  <hr>
+</div>
+
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button class="btn btn-success" type="submit">Guardar</button>
+  <hr>
+  <button class="btn btn-success" type="submit"><span class='glyphicon glyphicon-floppy-saved'></span>&nbsp Guardar</button>
 </form>
 {% endblock%}
