@@ -1,10 +1,8 @@
 from django import forms
-from . models import User, School
+from . models import User, School, Requirement, Visit
 
 class UserForm(forms.ModelForm):
-
     class Meta:
-
         model = User
         fields = [
             'dni',
@@ -27,14 +25,14 @@ class UserForm(forms.ModelForm):
             'user_type': 'Tipo de usuario',
         }
         widgets = {
-            'dni':forms.TextInput(attrs={'class':'form-control'}),
-            'first_name':forms.TextInput(attrs={'class':'form-control'}),
-            'last_name':forms.TextInput(attrs={'class':'form-control'}),
-            'username':forms.TextInput(attrs={'class':'form-control'}),
-            'password':forms.PasswordInput(attrs={'class':'form-control'}),
-            'email':forms.TextInput(attrs={'class':'form-control'}),
-            'phone_number':forms.TextInput(attrs={'class':'form-control'}),
-            'user_type':forms.Select(attrs={'class':'form-control'}),
+            'dni': forms.TextInput(attrs={'class':'form-control'}),
+            'first_name': forms.TextInput(attrs={'class':'form-control'}),
+            'last_name': forms.TextInput(attrs={'class':'form-control'}),
+            'username': forms.TextInput(attrs={'class':'form-control'}),
+            'password': forms.PasswordInput(attrs={'class':'form-control'}),
+            'email': forms.TextInput(attrs={'class':'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class':'form-control'}),
+            'user_type': forms.Select(attrs={'class':'form-control'}),
         }
 
 class SchoolForm(forms.ModelForm):
@@ -71,17 +69,67 @@ class SchoolForm(forms.ModelForm):
             'workday': 'Jornada',
         }
         widgets = {
-            'amie':forms.TextInput(attrs={'class':'form-control'}),
-            'name':forms.TextInput(attrs={'class':'form-control'}),
-            'phone_number':forms.TextInput(attrs={'class':'form-control'}),
-            'address':forms.TextInput(attrs={'class':'form-control'}),
-            'reference':forms.TextInput(attrs={'class':'form-control'}),
-            'parish':forms.TextInput(attrs={'class':'form-control'}),
-            'priority':forms.TextInput(attrs={'class':'form-control'}),
-            'is_active':forms.TextInput(attrs={'class':'form-control'}),
-            'date_joined':forms.TextInput(attrs={'class':'form-control'}),
-            'created_by':forms.TextInput(attrs={'class':'form-control'}),
-            'sector':forms.Select(attrs={'class':'form-control'}),
-            'tutor':forms.Select(attrs={'class':'form-control'}),
-            'workday':forms.Select(attrs={'class':'form-control'}),
+            'amie': forms.TextInput(attrs={'class':'form-control'}),
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class':'form-control'}),
+            'address': forms.TextInput(attrs={'class':'form-control'}),
+            'reference': forms.TextInput(attrs={'class':'form-control'}),
+            'parish': forms.TextInput(attrs={'class':'form-control'}),
+            'priority': forms.TextInput(attrs={'class':'form-control'}),
+            'is_active': forms.TextInput(attrs={'class':'form-control'}),
+            'date_joined': forms.TextInput(attrs={'class':'form-control'}),
+            'created_by': forms.TextInput(attrs={'class':'form-control'}),
+            'sector': forms.Select(attrs={'class':'form-control'}),
+            'tutor': forms.Select(attrs={'class':'form-control'}),
+            'workday': forms.Select(attrs={'class':'form-control'}),
+        }
+
+class RequirementForm(forms.ModelForm):
+    class Meta:
+        model = Requirement
+        fields = [
+            'reason',
+            'school',
+            'state',
+            'type',
+            'user',
+            'date_joined',
+        ]
+        labels = {
+            'reason': 'Motivo',
+            'school': 'Escuela',
+            'state': 'Estado',
+            'type': 'Tipo',
+            'user': 'Creado por',
+            'date_joined': 'Fecha de creación',
+        }
+        widgets = {
+            'reason': forms.TextInput(attrs={'class':'form-control'}),
+            'school': forms.Select(attrs={'class':'form-control'}),
+            'state': forms.Select(attrs={'class':'form-control'}),
+            'type': forms.Select(attrs={'class':'form-control'}),
+            'user': forms.Select(attrs={'class':'form-control'}),
+            'date_joined': forms.TextInput(attrs={'class':'form-control'}),
+        }
+
+class VisitForm(forms.ModelForm):
+    class Meta:
+        model = Visit
+        fields = [ # fecha requerimiento(ahiestalaescuela) quienrealizalavisista
+            'date_planned',
+            'requirement',
+            'school',
+            'user',
+        ]
+        labels = {
+            'date_planned': 'Fecha',
+            'requirement': 'Motivo',
+            'school': 'Escuela',
+            'user': 'Responsable',
+        }
+        widgets = {
+            'date_planned': forms.TextInput(attrs={'class':'form-control'}),
+            'requirement': forms.Select(attrs={'class':'form-control'}),
+            'school': forms.Select(attrs={'class':'form-control'}),
+            'user': forms.Select(attrs={'class':'form-control'}),
         }

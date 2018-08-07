@@ -34,9 +34,9 @@
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'accounts:user_list' %}">Usuarios</a></li>
-            <li class="active"><a href="{% url 'accounts:school_list' %}">Escuelas</a></li>
+            <li><a href="{% url 'accounts:school_list' %}">Escuelas</a></li>
             <li><a href="{% url 'accounts:visit_list' %}">Visitas</a></li>
-            <li><a href="{% url 'accounts:requirement_list' %}">Requerimientos</a></li>
+            <li class="active"><a href="{% url 'accounts:requirement_list' %}">Requerimientos</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> &nbsp {{ request.user.first_name }} {{ request.user.last_name }}</a></li>

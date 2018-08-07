@@ -7,8 +7,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, TemplateView
 from django.views.generic.detail import DetailView
 
-from . models import User, School
-from .forms import UserForm, SchoolForm
+from . models import User, School, Requirement, Visit
+from .forms import UserForm, SchoolForm, RequirementForm, VisitForm
 from . decorators import tech_leader_required
 
 # Create your views here.
@@ -88,3 +88,67 @@ class SchoolDelete(DeleteView):
 class SchoolShow(DetailView):
     model = School
     template_name = 'tech_leader/school/show.html'
+
+##############################    Visit    #####################################
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class VisitCreate(CreateView):
+    model = Visit
+    template_name = 'tech_leader/visit/form.html'
+    form_class = VisitForm
+    success_url = reverse_lazy('accounts:visit_list')
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class VisitList(ListView):
+    queryset = Visit.objects.order_by('id')
+    template_name = 'tech_leader/visit/list.html'
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class VisitUpdate(UpdateView):
+    model = Visit
+    form_class = VisitForm
+    template_name = 'tech_leader/visit/form.html'
+    success_url = reverse_lazy('accounts:visit_list')
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class VisitDelete(DeleteView):
+    model = Visit
+    template_name = 'tech_leader/visit/delete.html'
+    success_url = reverse_lazy('accounts:visit_list')
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class VisitShow(DetailView):
+    model = Visit
+    template_name = 'tech_leader/visit/show.html'
+
+#############################  Requirement  ####################################
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class RequirementCreate(CreateView):
+    model = Requirement
+    template_name = 'tech_leader/requirement/form.html'
+    form_class = RequirementForm
+    success_url = reverse_lazy('accounts:requirement_list')
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class RequirementList(ListView):
+    queryset = Requirement.objects.order_by('id')
+    template_name = 'tech_leader/requirement/list.html'
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class RequirementUpdate(UpdateView):
+    model = Requirement
+    form_class = RequirementForm
+    template_name = 'tech_leader/requirement/form.html'
+    success_url = reverse_lazy('accounts:requirement_list')
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class RequirementDelete(DeleteView):
+    model = Requirement
+    template_name = 'tech_leader/requirement/delete.html'
+    success_url = reverse_lazy('accounts:requirement_list')
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class RequirementShow(DetailView):
+    model = Requirement
+    template_name = 'tech_leader/requirement/show.html'

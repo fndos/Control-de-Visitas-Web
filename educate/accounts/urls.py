@@ -21,4 +21,16 @@ urlpatterns = [
     path('schools/update/<int:pk>/', views.SchoolUpdate.as_view(), name='school_update'),
     path('schools/delete/<int:pk>/', views.SchoolDelete.as_view(), name='school_delete'),
     path('schools/show/<int:pk>/', views.SchoolShow.as_view(), name='school_show'),
+    # Visit
+    path('visits/', views.VisitList.as_view(), name='visit_list'),
+    path('visits/create', views.VisitCreate.as_view(), name='visit_create'),
+    path('visits/update/<int:pk>/', views.VisitUpdate.as_view(), name='visit_update'),
+    path('visits/delete/<int:pk>/', views.VisitDelete.as_view(), name='visit_delete'),
+    path('visits/show/<int:pk>/', views.VisitShow.as_view(), name='visit_show'),
+    # Requeriment
+    path('requirements/', views.RequirementList.as_view(), name='requirement_list'),
+    path('requirements/create', views.RequirementCreate.as_view(), name='requirement_create'),
+    path('requirements/update/<int:pk>/', views.RequirementUpdate.as_view(), name='requirement_update'),
+    path('requirements/delete/<int:pk>/', views.RequirementDelete.as_view(), name='requirement_delete'),
+    path('requirements/show/<int:pk>/', views.RequirementShow.as_view(), name='requirement_show'),
 ]

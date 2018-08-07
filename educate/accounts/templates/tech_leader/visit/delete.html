@@ -1,4 +1,4 @@
-{% extends 'tech_leader/school/base.html' %}
+{% extends 'tech_leader/visit/base.html' %}
 
 {% block content %}
 
@@ -9,10 +9,10 @@
 
 <form method="post">
   {% csrf_token %}
-  <h3>¿Quieres eliminar la escuela {{ object.name }}?</h3>
+  <h3>¿Quieres eliminar esta visita?</h3>
   <h4>Si eliminas este registro, no podrás recuperarlo.</h4>
   <hr>
-  <button class="btn btn-danger" type="submit"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar escuela</button>
+  <button class="btn btn-danger" type="submit"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar visita</button>
   <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-remove'></span>&nbsp Cancelar</a>
 </form>
 {% endblock%}

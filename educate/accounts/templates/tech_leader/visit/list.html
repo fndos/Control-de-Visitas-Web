@@ -1,0 +1,42 @@
+{% extends 'tech_leader/visit/base.html' %}
+
+{% block content %}
+<div class="section-title">
+  <a class="btn btn-success" href="{% url 'accounts:visit_create' %}"><span class='glyphicon glyphicon-plus-sign'></span>&nbsp Nueva Visita</a>
+  <hr>
+</div>
+
+{% if object_list %}
+<table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" id="my-table">
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Fecha</td>
+      <td>Motivo</td>
+      <td>Escuela</td>
+      <td>Responsable</td>
+      <td>Acciones</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {% for visit in object_list %}
+      <td>{{ visit.id }}</td>
+      <td>{{ visit.date_planned }}</td>
+      <td>{{ visit.requirement }}</td>
+      <td>{{ visit.school }}</td>
+      <td>{{ visit.user }}</td>
+      <td>
+        <a class="btn btn-success" href="{% url 'accounts:visit_show' visit.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
+        <a class="btn btn-primary" href="{% url 'accounts:visit_update' visit.id %}"><span class='glyphicon glyphicon-edit'></span></a>
+        <a class="btn btn-danger" href="{% url 'accounts:visit_delete' visit.id %}"><span class='glyphicon glyphicon-trash'></span></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h3>No hay registros que mostrar</h3>
+{% endif %}
+
+{% endblock%}
