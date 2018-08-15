@@ -4,14 +4,22 @@
 
 <div class="section-title">
   <a class="btn btn-default" href="{% url 'accounts:visit_list' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
-  <a class="btn btn-primary" href="{% url 'accounts:visit_update' object.id %}"><span class='glyphicon glyphicon-edit'></span>&nbsp Editar</a>
+  <!--<a class="btn btn-primary" href="{% url 'accounts:visit_update' object.id %}"><span class='glyphicon glyphicon-edit'></span>&nbsp Editar</a>-->
   <a class="btn btn-danger" href="{% url 'accounts:visit_delete' object.id %}"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</a>
   <hr>
 </div>
 
 <p><strong>Fecha: </strong>{{ object.date_planned }}</p>
 <p><strong>Motivo: </strong>{{ object.requirement }}</p>
-<p><strong>Escuela: </strong>{{ object.school }}</p>
+<p>
+  <strong>Escuela: </strong>
+  {% for requirement in object_requirement %}
+    {% ifequal requirement.id object.requirement.id %}
+      <td>{{ requirement.school }}</td>
+    {% else %}
+    {% endifequal %}
+  {% endfor %}
+</p>
 <p><strong>Responsable: </strong>{{ object.user }}</p>
 <hr>
 {% endblock%}

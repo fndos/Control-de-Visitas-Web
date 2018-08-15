@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-
+from django.db import connection
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, TemplateView
 from django.views.generic.detail import DetailView
 
@@ -11,7 +11,6 @@ from . models import User, School, Requirement, Visit
 from .forms import UserForm, SchoolForm, RequirementForm, VisitForm
 from . decorators import tech_leader_required
 
-# Create your views here.
 @login_required
 def LoginRedirect(request):
     user = request.user
@@ -65,6 +64,9 @@ class SchoolCreate(CreateView):
     template_name = 'tech_leader/school/form.html'
     form_class = SchoolForm
     success_url = reverse_lazy('accounts:school_list')
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super(SchoolCreate, self).form_valid(form)
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class SchoolList(ListView):
@@ -90,7 +92,6 @@ class SchoolShow(DetailView):
     template_name = 'tech_leader/school/show.html'
 
 ##############################    Visit    #####################################
-
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class VisitCreate(CreateView):
     model = Visit
@@ -99,9 +100,15 @@ class VisitCreate(CreateView):
     success_url = reverse_lazy('accounts:visit_list')
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
-class VisitList(ListView):
-    queryset = Visit.objects.order_by('id')
+class VisitList(TemplateView):
     template_name = 'tech_leader/visit/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VisitList, self).get_context_data(**kwargs)
+        context['object_list'] = Visit.objects.order_by('id')
+        context['object_requirement'] = Requirement.objects.all()
+        context['object_school'] = School.objects.all()
+        return context
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class VisitUpdate(UpdateView):
@@ -121,6 +128,14 @@ class VisitShow(DetailView):
     model = Visit
     template_name = 'tech_leader/visit/show.html'
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(VisitShow, self).get_context_data(**kwargs)
+        # Add extra context from another model
+        context['object_requirement'] = Requirement.objects.all()
+        context['object_school'] = School.objects.all()
+        return context
+
 #############################  Requirement  ####################################
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
@@ -129,6 +144,10 @@ class RequirementCreate(CreateView):
     template_name = 'tech_leader/requirement/form.html'
     form_class = RequirementForm
     success_url = reverse_lazy('accounts:requirement_list')
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        form.instance.user_id = self.request.user.id
+        return super(RequirementCreate, self).form_valid(form)
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class RequirementList(ListView):

@@ -46,11 +46,8 @@ class SchoolForm(forms.ModelForm):
             'reference',
             'parish',
             'priority',
-            'is_active',
-            'date_joined',
-            'created_by',
             'sector',
-            'tutor',
+            'ambassador_in',
             'workday',
         ]
         labels = {
@@ -61,11 +58,8 @@ class SchoolForm(forms.ModelForm):
             'reference': 'Referencia',
             'parish': 'Parroquia',
             'priority': 'Prioridad',
-            'is_active': 'Estado',
-            'date_joined': 'Fecha de creación',
-            'created_by': 'Creado por',
-            'sector': 'Sector',
-            'tutor': 'Embajador IN',
+            'sector': 'Zona',
+            'ambassador_in': 'Embajador IN',
             'workday': 'Jornada',
         }
         widgets = {
@@ -75,12 +69,9 @@ class SchoolForm(forms.ModelForm):
             'address': forms.TextInput(attrs={'class':'form-control'}),
             'reference': forms.TextInput(attrs={'class':'form-control'}),
             'parish': forms.TextInput(attrs={'class':'form-control'}),
-            'priority': forms.TextInput(attrs={'class':'form-control'}),
-            'is_active': forms.TextInput(attrs={'class':'form-control'}),
-            'date_joined': forms.TextInput(attrs={'class':'form-control'}),
-            'created_by': forms.TextInput(attrs={'class':'form-control'}),
+            'priority': forms.Select(attrs={'class':'form-control'}),
             'sector': forms.Select(attrs={'class':'form-control'}),
-            'tutor': forms.Select(attrs={'class':'form-control'}),
+            'ambassador_in': forms.TextInput(attrs={'class':'form-control'}),
             'workday': forms.Select(attrs={'class':'form-control'}),
         }
 
@@ -90,46 +81,43 @@ class RequirementForm(forms.ModelForm):
         fields = [
             'reason',
             'school',
-            'state',
             'type',
-            'user',
-            'date_joined',
         ]
         labels = {
             'reason': 'Motivo',
             'school': 'Escuela',
-            'state': 'Estado',
             'type': 'Tipo',
-            'user': 'Creado por',
-            'date_joined': 'Fecha de creación',
         }
         widgets = {
             'reason': forms.TextInput(attrs={'class':'form-control'}),
             'school': forms.Select(attrs={'class':'form-control'}),
-            'state': forms.Select(attrs={'class':'form-control'}),
             'type': forms.Select(attrs={'class':'form-control'}),
-            'user': forms.Select(attrs={'class':'form-control'}),
-            'date_joined': forms.TextInput(attrs={'class':'form-control'}),
         }
 
 class VisitForm(forms.ModelForm):
+
     class Meta:
         model = Visit
-        fields = [ # fecha requerimiento(ahiestalaescuela) quienrealizalavisista
+        fields = [
             'date_planned',
             'requirement',
-            'school',
             'user',
         ]
         labels = {
             'date_planned': 'Fecha',
-            'requirement': 'Motivo',
-            'school': 'Escuela',
-            'user': 'Responsable',
         }
         widgets = {
-            'date_planned': forms.TextInput(attrs={'class':'form-control'}),
-            'requirement': forms.Select(attrs={'class':'form-control'}),
-            'school': forms.Select(attrs={'class':'form-control'}),
-            'user': forms.Select(attrs={'class':'form-control'}),
+            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
         }
+
+    requirement = forms.ModelChoiceField(
+        queryset=Requirement.objects.filter(state=1),
+        label='Motivo',
+        widget=forms.Select(attrs={'class':'form-control'}),
+        )
+
+    user = forms.ModelChoiceField(
+        queryset=User.objects.filter(user_type=2),
+        label='Responsable',
+        widget=forms.Select(attrs={'class':'form-control'}),
+        )

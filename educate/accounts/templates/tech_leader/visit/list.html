@@ -20,15 +20,21 @@
   </thead>
   <tbody>
     <tr>
-      {% for visit in object_list %}
+    {% for visit in object_list %}
       <td>{{ visit.id }}</td>
       <td>{{ visit.date_planned }}</td>
       <td>{{ visit.requirement }}</td>
-      <td>{{ visit.school }}</td>
+      {% for requirement in object_requirement %}
+        {% ifequal requirement.id visit.requirement.id %}
+          <td>{{ requirement.school }}</td>
+        {% else %}
+        {% endifequal %}
+      {% endfor %}
+      <!--<td>{{ visit.school }}</td>-->
       <td>{{ visit.user }}</td>
       <td>
         <a class="btn btn-success" href="{% url 'accounts:visit_show' visit.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
-        <a class="btn btn-primary" href="{% url 'accounts:visit_update' visit.id %}"><span class='glyphicon glyphicon-edit'></span></a>
+        <!--<a class="btn btn-primary" href="{% url 'accounts:visit_update' visit.id %}"><span class='glyphicon glyphicon-edit'></span></a>-->
         <a class="btn btn-danger" href="{% url 'accounts:visit_delete' visit.id %}"><span class='glyphicon glyphicon-trash'></span></a>
       </td>
     </tr>

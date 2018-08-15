@@ -31,13 +31,13 @@
       <td>{{ user.phone_number }}</td>
       <td>
         {% if user.user_type == 1 %}
-        tutor
+        Tutor
         {% elif user.user_type == 2 %}
-        tech
+        Técnico
         {% elif user.user_type == 3 %}
-        tutor_leader
+        Tutor Líder
         {% else %}
-        tech_leader
+        Técnico Líder
         {% endif %}
       </td>
       <td>

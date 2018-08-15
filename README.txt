@@ -34,3 +34,4 @@
 	
 - Finalmente ejecutar el servidor
 	python manage.py runserver
+	NOTA: La clave para cada usuario es feducate, los nombres de usuarios son tech_leader, tutor_leader, tech, tutor

@@ -17,12 +17,13 @@
 <p><strong>Parroquia: </strong>{{ object.parish }}</p>
 <p>
   <strong>Prioridad: </strong>
-  {% if object.priority == True %}
-  Si
-  {% else %}
+  {% if object.priority == 1 %}
   No
+  {% else %}
+  Si
   {% endif %}
 </p>
+<p><strong>Zona: </strong>{{ object.sector }}</p>
 <p>
   <strong>Estado: </strong>
   {% if object.is_active == True %}
@@ -33,25 +34,15 @@
 </p>
 <p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
 <p><strong>Creado por: </strong>{{ object.created_by }}</p>
-<p>
-  <strong>Sector: </strong>
-  {% if object.sector_id == 1 %}
-  Norte
-  {% elif object.sector_id == 2 %}
-  Centro
-  {% elif object.sector_id == 3 %}
-  Vía a la costa
-  {% else %}
-  Sur
-  {% endif %}
-</p>
-<p><strong>Embajador IN: </strong>{{ object.tutor_id }}</p>
+<p><strong>Embajador IN: </strong>{{ object.ambassador_in }}</p>
 <p>
   <strong>Jornada: </strong>
-  {% if object.workday_id == 1 %}
+  {% if object.workday == 1 %}
   Matutina
-  {% else %}
+  {% elif object.workday == 2 %}
   Vespertina
+  {% else %}
+  Matutina/Vespertina
   {% endif %}
 </p>
 <hr>

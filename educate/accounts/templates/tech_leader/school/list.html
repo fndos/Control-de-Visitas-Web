@@ -17,7 +17,6 @@
       <!--<td>Referencia</td>-->
       <!--<td>Parroquia</td>-->
       <td>Prioridad</td>
-      <td>Estado</td>
       <!--<td>Fecha de creación</td>-->
       <!--<td>Creado por</td>-->
       <!--<td>Sector</td>-->
@@ -36,38 +35,21 @@
       <!--<td>{{ school.reference }}</td>-->
       <!--<td>{{ school.parish }}</td>-->
       <td>
-        {% if school.priority == True %}
-        Si
-        {% else %}
+        {% if school.priority == 1 %}
         No
-        {% endif %}
-      </td>
-      <td>
-        {% if school.is_active == True %}
-        Activo
         {% else %}
-        Inactivo
+        Si
         {% endif %}
       </td>
       <!--<td>{{ school.date_joined }}</td>-->
       <!--<td>{{ school.created_by }}</td>-->
-      <!--<td>
-        {% if school.sector_id == 1 %}
-        Norte
-        {% elif school.sector_id == 2 %}
-        Centro
-        {% elif school.sector_id == 3 %}
-        Vía a la costa
-        {% else %}
-        Sur
-        {% endif %}
-      </td>-->
-      <!--<td>{{ school.tutor_id }}</td>-->
       <td>
-        {% if school.workday_id == 1 %}
+        {% if school.workday == 1 %}
         Matutina
-        {% else %}
+        {% elif school.workday == 2 %}
         Vespertina
+        {% else %}
+        Matutina/Vespertina
         {% endif %}
       </td>
       <td>
