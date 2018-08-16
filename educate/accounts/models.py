@@ -123,14 +123,21 @@ class Visit(models.Model):
       (2, 'Realizada'),
       (3, 'No Realizada'),
     )
+    # Type Choices
+    VISIT_TYPE_CHOICES = (
+      (1, 'Pedagógica'),
+      (2, 'Técnica'),
+      (3, 'Ambas'),
+    )
     #Información General
     date_planned =  models.DateTimeField()
     check_in =  models.DateTimeField(null=True)
     check_out =   models.DateTimeField(null=True)
-    coordinates_lat_in = models.CharField(null=True, max_length=100) # longitud + latitud
-    coordinates_lon_in = models.CharField(null=True, max_length=100) # longitud + latitud
-    coordinates_lat_out = models.CharField(null=True, max_length=100) # longitud + latitud
-    coordinates_lon_out = models.CharField(null=True, max_length=100) # longitud + latitud
+    coordinates_lat_in = models.CharField(null=True, max_length=100) # latitud
+    coordinates_lon_in = models.CharField(null=True, max_length=100) # longitud
+    coordinates_lat_out = models.CharField(null=True, max_length=100) # latitud
+    coordinates_lon_out = models.CharField(null=True, max_length=100) # longitud
+    type = models.PositiveSmallIntegerField(null=True, choices=VISIT_TYPE_CHOICES)
     observation = models.TextField(null=True)
     # ID del requerimieno que generó la visita
     requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE, null=True)
