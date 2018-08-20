@@ -110,7 +110,7 @@ class VisitForm(forms.ModelForm):
             'date_planned': 'Fecha',
         }
         widgets = {
-            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
+            'date_planned': forms.TextInput(attrs={'class':'form-control'}),
         }
 
     requirement = forms.ModelChoiceField(

@@ -30,4 +30,5 @@ $(document).ready(function () {
     "lengthChange": 'true',
     "responsive": 'true',
   });
+
 });

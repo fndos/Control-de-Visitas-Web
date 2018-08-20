@@ -11,15 +11,17 @@
   <!--Planning List-->
   <div class="pre-scrollable col col-lg-6 col-md-6 col-sm-6 col-xs-12">
     {% for visit in object_visit %}
-    <a href="{% url 'accounts:planning_show' visit.id %}"><div class="item">
-      <div class="row">
-        <p class="item-time col col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ visit.date_planned }}</p>
-        <p class="item-form col col-lg-6 col-md-6 col-sm-6 col-xs-6">N° 0000000293</p>
-        <p class="item-code col col-lg-4 col-md-4 col-sm-4 col-xs-4 ">{{ visit.requirement.school.amie }}</p>
-        <p class="item-name col col-lg-8 col-md-8 col-sm-8 col-xs-8">{{ visit.requirement.school }}</p>
-        <p class="item-address col col-lg-12 col-md-12 col-sm-12 col-xs-12">{{ visit.requirement.school.address }}</p>
+    <a href="{% url 'accounts:planning_show' visit.id %}">
+      <div class="item">
+        <div class="row">
+          <p class="item-time col col-lg-6 col-md-6 col-sm-6 col-xs-6">{{ visit.date_planned }}</p>
+          <p class="item-form col col-lg-6 col-md-6 col-sm-6 col-xs-6">N° 0000000293</p>
+          <p class="item-code col col-lg-4 col-md-4 col-sm-4 col-xs-4 ">{{ visit.requirement.school.amie }}</p>
+          <p class="item-name col col-lg-8 col-md-8 col-sm-8 col-xs-8">{{ visit.requirement.school }}</p>
+          <p class="item-address col col-lg-12 col-md-12 col-sm-12 col-xs-12">{{ visit.requirement.school.address }}</p>
+        </div>
       </div>
-    </div></a>
+    </a>
     {% endfor %}
   </div>
   {% else %}

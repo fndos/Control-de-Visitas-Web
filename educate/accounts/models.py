@@ -11,7 +11,7 @@ class Sector(models.Model):
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     def __str__(self):
@@ -72,7 +72,7 @@ class School(models.Model):
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     def __str__(self):
@@ -108,7 +108,7 @@ class Requirement(models.Model):
     is_active = models.NullBooleanField(null=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     def __str__(self):
@@ -196,7 +196,7 @@ class Activity(models.Model):
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     def __str__(self):
@@ -221,7 +221,7 @@ class TechnicalForm(models.Model):
     # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     class Meta:
@@ -235,7 +235,7 @@ class DataApciAcademico(models.Model):
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     class Meta:
@@ -251,7 +251,7 @@ class NoLeccionesAprobadas(models.Model):
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     class Meta:
@@ -269,7 +269,7 @@ class NoAlumnosIngresados(models.Model):
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     class Meta:
@@ -285,7 +285,7 @@ class PromedioAcademico(models.Model):
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     class Meta:
@@ -301,7 +301,7 @@ class NoAlumnosTrabajando(models.Model):
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     class Meta:
@@ -329,7 +329,7 @@ class PedagogicalForm(models.Model):
     # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateField(auto_now_add=True) # Fecha de creación
+    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateField(null=True) # Fecha de modificación
 
     class Meta:

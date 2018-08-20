@@ -63,7 +63,7 @@ form > .btn {
 }
 /*------------------------- Planning + Calendar  -----------------------------*/
 .item {
-  background-color: #f9ffbe !important;
+  /*background-color: #f9ffbe !important;*/
   border-color: #d3dce6 !important;
   border-radius: 15px !important;
   margin-bottom: 12px !important;
@@ -104,7 +104,7 @@ form > .btn {
 }
 
 .item-form, .item-code, .item-address {
-  color: gray;
+  color: #333333 !important;
 }
 
 .item-form {
@@ -118,7 +118,7 @@ thead {
     font-family: Helvetica;
 }
 
-td > .btn {
+.table.table-striped.table-bordered.dt-responsive.nowrap > tbody > tr > td > .btn {
   padding: 0px;
   padding-top: 2.5px;
   width: 25px;
