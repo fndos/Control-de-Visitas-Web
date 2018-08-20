@@ -1,0 +1,18 @@
+{% extends 'tutor_leader/planning/base.html' %}
+
+{% block content %}
+
+<div class="section-title">
+  <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  <hr>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <h3>¿Quieres eliminar esta visita?</h3>
+  <h4>Si eliminas este registro, no podrás recuperarlo.</h4>
+  <hr>
+  <button class="btn btn-danger" type="submit"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar visita</button>
+  <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-remove'></span>&nbsp Cancelar</a>
+</form>
+{% endblock%}

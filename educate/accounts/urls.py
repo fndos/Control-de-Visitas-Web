@@ -1,11 +1,14 @@
 from django.urls import path
 #from django.contrib.auth import login
 from django.contrib.auth.views import login, logout
-from . import views
+from .views.tech_leader import views
+from .views.tutor_leader import views as tutor_leader
+from .views.tech import views as tech
 
 app_name = 'accounts'
 
 urlpatterns = [
+    ############################# LOGIN REDIRECT ###############################
     path('', views.LoginRedirect, name='login_redirect'),
     path('login/', login, {'template_name': 'accounts/login.html'}, name='login'),
     path('logout/', logout, name='logout'),
@@ -35,6 +38,21 @@ urlpatterns = [
     path('t/requirements/delete/<int:pk>/', views.RequirementDelete.as_view(), name='requirement_delete'),
     path('t/requirements/show/<int:pk>/', views.RequirementShow.as_view(), name='requirement_show'),
     ############################# TUTOR_LEADER (r) #############################
+    # Planning
+    path('r/planning/', tutor_leader.PlanningList.as_view(), name='planning_list'),
+    path('r/planning/create/requirement', tutor_leader.RequirementCreate.as_view(), name='planning_requirement_create'),
+    path('r/planning/create/visit', tutor_leader.VisitCreate.as_view(), name='planning_visit_create'),
+    path('r/planning/show/<int:pk>/', tutor_leader.VisitShow.as_view(), name='planning_show'),
+    path('r/planning/update/requirement/<int:pk>/', tutor_leader.RequirementUpdate.as_view(), name='planning_requirement_update'),
+    path('r/planning/update/visit/<int:pk>/', tutor_leader.VisitUpdate.as_view(), name='planning_visit_update'),
+    path('r/planning/delete/<int:pk>/', tutor_leader.VisitDelete.as_view(), name='planning_delete'),
+    # Visit
+    path('r/visits/', tutor_leader.VisitList.as_view(), name='visit_list_tutor_leader'),
+    path('r/visits/show/<int:pk>/', tutor_leader.VisitDetail.as_view(), name='visit_show_tutor_leader'),
     ############################# TUTOR (nr) ###################################
+
     ############################# TECH (nt) ####################################
+    # Visit
+    path('nt/visits/', tech.VisitList.as_view(), name='visit_list_tech'),
+    path('nt/visits/show/<int:pk>/', tech.VisitShow.as_view(), name='visit_show_tech'),
 ]

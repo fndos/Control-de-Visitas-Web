@@ -1,0 +1,15 @@
+{% extends 'tech/visit/base.html' %}
+
+{% block content %}
+
+<div class="section-title">
+  <a class="btn btn-default" href="{% url 'accounts:visit_list_tech' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  <hr>
+</div>
+
+<p><strong>Fecha: </strong>{{ object.date_planned }}</p>
+<p><strong>Motivo: </strong>{{ object.requirement }}</p>
+<p><strong>Escuela: </strong>{{ object.requirement.school }}</p>
+<p><strong>Responsable: </strong>{{ object.user }}</p>
+<hr>
+{% endblock%}

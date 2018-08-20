@@ -11,6 +11,12 @@
   {% csrf_token %}
   {{ form.as_p }}
   <hr>
-  <button class="btn btn-success" type="submit"><span class='glyphicon glyphicon-floppy-saved'></span>&nbsp Guardar</button>
+  {% ifequal form.instance.pk None %}
+    <!--Create-->
+    <button class="btn btn-success" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar y salir</button>
+  {% else %}
+    <!--Update-->
+    <button class="btn btn-primary" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar cambios y salir</button>
+  {% endifequal %}
 </form>
 {% endblock%}

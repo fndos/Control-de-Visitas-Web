@@ -11,15 +11,7 @@
 
 <p><strong>Fecha: </strong>{{ object.date_planned }}</p>
 <p><strong>Motivo: </strong>{{ object.requirement }}</p>
-<p>
-  <strong>Escuela: </strong>
-  {% for requirement in object_requirement %}
-    {% ifequal requirement.id object.requirement.id %}
-      <td>{{ requirement.school }}</td>
-    {% else %}
-    {% endifequal %}
-  {% endfor %}
-</p>
+<p><strong>Escuela: </strong>{{ object.requirement.school }}</p>
 <p><strong>Responsable: </strong>{{ object.user }}</p>
 <hr>
 {% endblock%}

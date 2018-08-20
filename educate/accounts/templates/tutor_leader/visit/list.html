@@ -1,8 +1,8 @@
-{% extends 'tech_leader/visit/base.html' %}
+{% extends 'tutor_leader/visit/base.html' %}
 
 {% block content %}
 <div class="section-title">
-  <a class="btn btn-success" href="{% url 'accounts:visit_create' %}"><span class='glyphicon glyphicon-plus-sign'></span>&nbsp Nueva Visita</a>
+  <a class="btn btn-success" href="#"><span class='glyphicon glyphicon-plus-sign'></span>&nbsp Nueva Visita</a>
   <hr>
 </div>
 
@@ -27,8 +27,7 @@
       <td>{{ visit.requirement.school }}</td>
       <td>{{ visit.user }}</td>
       <td>
-        <a class="btn btn-success" href="{% url 'accounts:visit_show' visit.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
-        <a class="btn btn-danger" href="{% url 'accounts:visit_delete' visit.id %}"><span class='glyphicon glyphicon-trash'></span></a>
+        <a class="btn btn-success" href="{% url 'accounts:visit_show_tutor_leader' visit.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
       </td>
     </tr>
     {% endfor %}

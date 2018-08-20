@@ -1,5 +1,9 @@
 from django import forms
+from betterforms.multiform import MultiModelForm
 from . models import User, School, Requirement, Visit
+from django.db.models import Q
+
+############################### TECH_LEADER (t) ################################
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -95,7 +99,6 @@ class RequirementForm(forms.ModelForm):
         }
 
 class VisitForm(forms.ModelForm):
-
     class Meta:
         model = Visit
         fields = [
@@ -117,7 +120,72 @@ class VisitForm(forms.ModelForm):
         )
 
     user = forms.ModelChoiceField(
-        queryset=User.objects.filter(user_type=2),
+        queryset=User.objects.filter(Q(user_type=2) | Q(user_type=4)), # Si el usuario es Tech o Tech Leader
+        label='Responsable',
+        widget=forms.Select(attrs={'class':'form-control'}),
+        )
+
+############################### TUTOR_LEADER (r) ###############################
+
+class RequirementCreateForm(forms.ModelForm):
+    class Meta:
+        model = Requirement
+        fields = [
+            'reason',
+            'school',
+        ]
+        labels = {
+            'reason': 'Motivo',
+            'school': 'Escuela',
+        }
+        widgets = {
+            'reason': forms.TextInput(attrs={'class':'form-control'}),
+            'school': forms.Select(attrs={'class':'form-control'}),
+        }
+
+class VisitCreateForm(forms.ModelForm):
+    class Meta:
+        model = Visit
+        fields = [
+            'date_planned',
+            'requirement',
+            'user',
+        ]
+        labels = {
+            'date_planned': 'Fecha',
+        }
+        widgets = {
+            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
+        }
+
+    requirement = forms.ModelChoiceField(
+        queryset=Requirement.objects.filter(state=1),
+        label='Motivo',
+        widget=forms.Select(attrs={'class':'form-control'}),
+        )
+
+    user = forms.ModelChoiceField(
+        queryset=User.objects.filter(Q(user_type=1) | Q(user_type=3)), # Si el usuario es Tutor o Tutor Leader
+        label='Responsable',
+        widget=forms.Select(attrs={'class':'form-control'}),
+        )
+
+class VisitUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Visit
+        fields = [
+            'date_planned',
+            'user',
+        ]
+        labels = {
+            'date_planned': 'Fecha',
+        }
+        widgets = {
+            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
+        }
+
+    user = forms.ModelChoiceField(
+        queryset=User.objects.filter(Q(user_type=1) | Q(user_type=3)), # Si el usuario es Tutor o Tutor Leader
         label='Responsable',
         widget=forms.Select(attrs={'class':'form-control'}),
         )

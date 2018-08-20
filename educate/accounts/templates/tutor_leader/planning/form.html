@@ -1,4 +1,4 @@
-{% extends 'tech_leader/school/base.html' %}
+{% extends 'tutor_leader/planning/base.html' %}
 
 {% block content %}
 
@@ -13,10 +13,10 @@
   <hr>
   {% ifequal form.instance.pk None %}
     <!--Create-->
-    <button class="btn btn-success" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar y salir</button>
+    <button class="btn btn-success" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar y continuar</button>
   {% else %}
     <!--Update-->
-    <button class="btn btn-primary" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar cambios y salir</button>
+    <button class="btn btn-primary" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar cambios y continuar</button>
   {% endifequal %}
 </form>
 {% endblock%}

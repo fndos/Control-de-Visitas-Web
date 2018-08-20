@@ -95,6 +95,7 @@ class Requirement(models.Model):
       (3, 'Incidencia'), # Si el requerimiento fue generado por el tutor o tutor_leader
     )
     # Información General
+    state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
     #  Motivo del servicio o requerimiento
     reason = models.TextField()
     type = models.PositiveSmallIntegerField(null=True, choices=REQUIREMENT_TYPE_CHOICES)
@@ -104,7 +105,7 @@ class Requirement(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     # Campos de auditoria
     # Tech Leader, Tutor o Tutor Leader que generó el requerimiento
-    state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
+    is_active = models.NullBooleanField(null=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateField(auto_now_add=True) # Fecha de creación
@@ -143,10 +144,12 @@ class Visit(models.Model):
     requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE, null=True)
     # Techo, Tutor, Tutor Leader, Tech Leader responsable de realizar la visita
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    # Pedagogical Form ID
-    # Technical Form ID
-    # Campos de auditoria
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES)
+    # Pedagogical Form ID
+
+    # Technical Form ID
+
+    # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
@@ -210,12 +213,12 @@ class TechnicalForm(models.Model):
       (2, 'Finalizado')
     )
     #Información General
-    visit = models.ForeignKey(Visit, on_delete=models.CASCADE)
+    visit = models.ForeignKey(Visit, on_delete=models.CASCADE, null=True)
     action_taken = models.CharField(max_length=100)
     observation = models.TextField(null=True)
     activity = models.ManyToManyField(Activity)
-    # Campos de auditoria
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
+    # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateField(auto_now_add=True) # Fecha de creación
@@ -322,8 +325,8 @@ class PedagogicalForm(models.Model):
     internet = models.PositiveSmallIntegerField(null=True, choices=INTERNET_TYPE_CHOICES)
     action_taken = models.TextField()
     data_apci_academico = models.ForeignKey(DataApciAcademico, on_delete=models.CASCADE, null=True)
-    # Campos de auditoria
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
+    # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateField(auto_now_add=True) # Fecha de creación

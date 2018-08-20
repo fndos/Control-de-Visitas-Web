@@ -6,10 +6,11 @@ from django.utils.decorators import method_decorator
 from django.db import connection
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, TemplateView
 from django.views.generic.detail import DetailView
+from django.db.models import Q
 
-from . models import User, School, Requirement, Visit
-from .forms import UserForm, SchoolForm, RequirementForm, VisitForm
-from . decorators import tech_leader_required
+from ... models import User, School, Requirement, Visit
+from ... forms import UserForm, SchoolForm, RequirementForm, VisitForm
+from ... decorators import tech_leader_required
 
 @login_required
 def LoginRedirect(request):
@@ -105,9 +106,10 @@ class VisitList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(VisitList, self).get_context_data(**kwargs)
-        context['object_list'] = Visit.objects.order_by('id')
-        context['object_requirement'] = Requirement.objects.all()
-        context['object_school'] = School.objects.all()
+        try:
+            context['object_visit'] = Visit.objects.filter(~Q(requirement__type=None))
+        except Visit.DoesNotExist:
+            context['object_visit'] = None
         return context
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
@@ -128,14 +130,6 @@ class VisitShow(DetailView):
     model = Visit
     template_name = 'tech_leader/visit/show.html'
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(VisitShow, self).get_context_data(**kwargs)
-        # Add extra context from another model
-        context['object_requirement'] = Requirement.objects.all()
-        context['object_school'] = School.objects.all()
-        return context
-
 #############################  Requirement  ####################################
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
@@ -150,9 +144,16 @@ class RequirementCreate(CreateView):
         return super(RequirementCreate, self).form_valid(form)
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
-class RequirementList(ListView):
-    queryset = Requirement.objects.order_by('id')
+class RequirementList(TemplateView):
     template_name = 'tech_leader/requirement/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RequirementList, self).get_context_data(**kwargs)
+        try:
+            context['object_requirement'] = Requirement.objects.filter(~Q(type=None))
+        except Visit.DoesNotExist:
+            context['object_requirement'] = None
+        return context
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class RequirementUpdate(UpdateView):

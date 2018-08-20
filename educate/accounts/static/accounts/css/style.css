@@ -61,6 +61,55 @@ form > .btn {
 .sideMenu.navbar-inverse.open {
   background-color: #ffb347 !important;
 }
+/*------------------------- Planning + Calendar  -----------------------------*/
+.item {
+  background-color: #f9ffbe !important;
+  border-color: #d3dce6 !important;
+  border-radius: 15px !important;
+  margin-bottom: 12px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  font-size: 14px;
+}
+
+.item-empty {
+  background-color: #f9ffbe !important;
+  border-color: #d3dce6 !important;
+  border-radius: 15px !important;
+  margin-bottom: 12px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-top: 130px !important;
+  padding-bottom: 10px !important;
+  font-size: 22px;
+  height: 340px;
+  color: gray;
+  font-weight: bold;
+  text-align: center;
+}
+
+.item-time {
+  text-align: left !important;
+  font-weight: 600 !important;
+  font-family: Helvetica;
+}
+
+.item-time, .item-name {
+  color: black;
+  font-weight: bold;
+  font-weight: 600 !important;
+  font-family: Helvetica;
+}
+
+.item-form, .item-code, .item-address {
+  color: gray;
+}
+
+.item-form {
+  text-align: right !important;
+}
 
 /*----------------------------- Data Tables ----------------------------------*/
 
@@ -151,24 +200,93 @@ td > .btn {
 /*--------------------------------- lg ---------------------------------------*/
 
 @media (min-width: 1200px) {
-
+  .item-code {
+    width: 90px;
+  }
 }
 
 /*--------------------------------- md ---------------------------------------*/
 
 @media (min-width: 992px) and (max-width: 1199px) {
-
+  .item-code {
+    width: 90px;
+  }
+  .item {
+    font-size: 14px !important;
+  }
+  .item-time {
+    display: inline;
+    text-align: left;
+    float: left;
+  }
+  .item-form {
+    display: inline;
+    text-align: right;
+    float: right;
+  }
 }
 
 /*--------------------------------- sm ---------------------------------------*/
 @media (min-width: 768px) and (max-width: 991px) {
-
+  .item {
+    font-size: 14px !important;
+  }
+  .item-code {
+    width: 90px !important;
+  }
+  .item-time {
+    display: inline;
+    text-align: left;
+    float: left;
+  }
+  .item-form {
+    display: inline;
+    text-align: right;
+    float: right;
+  }
 }
 
 /*--------------------------------- xs ---------------------------------------*/
 
-@media (max-width: 767px) {
+@media (min-width: 321px) and (max-width: 767px) {
   #my-table_length {
     display: none;
+  }
+  .item {
+    font-size: 12px !important;
+  }
+  .item-code {
+    width: 90px !important;
+  }
+  .item-time {
+    display: inline;
+    text-align: left;
+    float: left;
+  }
+  .item-form {
+    display: inline;
+    text-align: right;
+    float: right;
+  }
+}
+
+/*--------------------------------- xxs --------------------------------------*/
+
+@media (max-width: 320px) {
+  #my-table_length {
+    display: none;
+  }
+  .item {
+    font-size: 12px !important;
+  }
+  .item-time {
+    display: inline;
+    text-align: left;
+    float: left;
+  }
+  .item-form {
+    display: inline;
+    text-align: right;
+    float: right;
   }
 }
