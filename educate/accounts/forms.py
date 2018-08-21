@@ -1,6 +1,6 @@
 from django import forms
 from betterforms.multiform import MultiModelForm
-from . models import User, School, Requirement, Visit
+from . models import User, School, Requirement, Visit, Sector
 from django.db.models import Q
 
 ############################### TECH_LEADER (t) ################################
@@ -37,6 +37,25 @@ class UserForm(forms.ModelForm):
             'email': forms.TextInput(attrs={'class':'form-control'}),
             'phone_number': forms.TextInput(attrs={'class':'form-control'}),
             'user_type': forms.Select(attrs={'class':'form-control'}),
+        }
+
+class SectorForm(forms.ModelForm):
+    class Meta:
+        model = Sector
+        fields = [
+            'id',
+            'name',
+            'description',
+        ]
+        labels = {
+            'id': 'ID',
+            'name': 'Nombre',
+            'description': 'Descripción',
+        }
+        widgets = {
+            'id': forms.TextInput(attrs={'class':'form-control'}),
+            'name': forms.TextInput(attrs={'class':'form-control'}),
+            'description': forms.TextInput(attrs={'class':'form-control'}),
         }
 
 class SchoolForm(forms.ModelForm):
@@ -110,7 +129,7 @@ class VisitForm(forms.ModelForm):
             'date_planned': 'Fecha',
         }
         widgets = {
-            'date_planned': forms.TextInput(attrs={'class':'form-control'}),
+            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'datetime'}),
         }
 
     requirement = forms.ModelChoiceField(
@@ -155,7 +174,7 @@ class VisitCreateForm(forms.ModelForm):
             'date_planned': 'Fecha',
         }
         widgets = {
-            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
+            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'datetime'}),
         }
 
     requirement = forms.ModelChoiceField(
@@ -181,7 +200,7 @@ class VisitUpdateForm(forms.ModelForm):
             'date_planned': 'Fecha',
         }
         widgets = {
-            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'date'}),
+            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'datetime'}),
         }
 
     user = forms.ModelChoiceField(

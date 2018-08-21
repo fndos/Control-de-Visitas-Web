@@ -8,8 +8,8 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView, T
 from django.views.generic.detail import DetailView
 from django.db.models import Q
 
-from ... models import User, School, Requirement, Visit
-from ... forms import UserForm, SchoolForm, RequirementForm, VisitForm
+from ... models import User, School, Requirement, Visit, Sector
+from ... forms import UserForm, SchoolForm, RequirementForm, VisitForm, SectorForm
 from ... decorators import tech_leader_required
 
 @login_required
@@ -25,7 +25,7 @@ def LoginRedirect(request):
     elif user.user_type == 4: # tech_leader
         return render(request, 'tech_leader/home.html', args)
 
-##############################    Users    #####################################
+##############################    User   #######################################
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class UserCreate(CreateView):
@@ -33,6 +33,10 @@ class UserCreate(CreateView):
     template_name = 'tech_leader/user/form.html'
     form_class = UserForm
     success_url = reverse_lazy('accounts:user_list')
+
+    def form_valid(self, form):
+        form.instance.created_by =  str(self.request.user)
+        return super(UserCreate, self).form_valid(form)
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class UserList(ListView):
@@ -46,6 +50,10 @@ class UserUpdate(UpdateView):
     template_name = 'tech_leader/user/form.html'
     success_url = reverse_lazy('accounts:user_list')
 
+    def form_valid(self, form):
+        form.instance.updated_by = str(self.request.user)
+        return super(UserUpdate, self).form_valid(form)
+
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class UserDelete(DeleteView):
     model = User
@@ -56,6 +64,44 @@ class UserDelete(DeleteView):
 class UserShow(DetailView):
     model = User
     template_name = 'tech_leader/user/show.html'
+##############################    Sector    ####################################
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class SectorCreate(CreateView):
+    model = Sector
+    template_name = 'tech_leader/sector/form.html'
+    form_class = SectorForm
+    success_url = reverse_lazy('accounts:sector_list')
+
+    def form_valid(self, form):
+        form.instance.created_by =  str(self.request.user)
+        return super(SectorCreate, self).form_valid(form)
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class SectorList(ListView):
+    queryset = Sector.objects.order_by('id')
+    template_name = 'tech_leader/sector/list.html'
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class SectorUpdate(UpdateView):
+    model = Sector
+    form_class = SectorForm
+    template_name = 'tech_leader/sector/form.html'
+    success_url = reverse_lazy('accounts:sector_list')
+
+    def form_valid(self, form):
+        form.instance.updated_by = str(self.request.user)
+        return super(SectorUpdate, self).form_valid(form)
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class SectorDelete(DeleteView):
+    model = Sector
+    template_name = 'tech_leader/sector/delete.html'
+    success_url = reverse_lazy('accounts:sector_list')
+
+@method_decorator([login_required, tech_leader_required], name='dispatch')
+class SectorShow(DetailView):
+    model = Sector
+    template_name = 'tech_leader/sector/show.html'
 
 ##############################    School    ####################################
 
@@ -66,7 +112,11 @@ class SchoolCreate(CreateView):
     form_class = SchoolForm
     success_url = reverse_lazy('accounts:school_list')
     def form_valid(self, form):
-        form.instance.created_by = self.request.user
+        form.instance.created_by = str(self.request.user)
+        return super(SchoolCreate, self).form_valid(form)
+
+    def form_valid(self, form):
+        form.instance.created_by = str(self.request.user)
         return super(SchoolCreate, self).form_valid(form)
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
@@ -80,6 +130,10 @@ class SchoolUpdate(UpdateView):
     form_class = SchoolForm
     template_name = 'tech_leader/school/form.html'
     success_url = reverse_lazy('accounts:school_list')
+
+    def form_valid(self, form):
+        form.instance.updated_by = str(self.request.user)
+        return super(SchoolUpdate, self).form_valid(form)
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class SchoolDelete(DeleteView):
@@ -100,6 +154,10 @@ class VisitCreate(CreateView):
     form_class = VisitForm
     success_url = reverse_lazy('accounts:visit_list')
 
+    def form_valid(self, form):
+        form.instance.created_by = str(self.request.user)
+        return super(VisitCreate, self).form_valid(form)
+
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class VisitList(TemplateView):
     template_name = 'tech_leader/visit/list.html'
@@ -118,6 +176,10 @@ class VisitUpdate(UpdateView):
     form_class = VisitForm
     template_name = 'tech_leader/visit/form.html'
     success_url = reverse_lazy('accounts:visit_list')
+
+    def form_valid(self, form):
+        form.instance.updated_by = str(self.request.user)
+        return super(VisitUpdate, self).form_valid(form)
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class VisitDelete(DeleteView):
@@ -138,8 +200,9 @@ class RequirementCreate(CreateView):
     template_name = 'tech_leader/requirement/form.html'
     form_class = RequirementForm
     success_url = reverse_lazy('accounts:requirement_list')
+
     def form_valid(self, form):
-        form.instance.created_by = self.request.user
+        form.instance.created_by = str(self.request.user)
         form.instance.user_id = self.request.user.id
         return super(RequirementCreate, self).form_valid(form)
 
@@ -161,6 +224,11 @@ class RequirementUpdate(UpdateView):
     form_class = RequirementForm
     template_name = 'tech_leader/requirement/form.html'
     success_url = reverse_lazy('accounts:requirement_list')
+
+    def form_valid(self, form):
+        form.instance.updated_by = str(self.request.user)
+        form.instance.user_id = self.request.user.id
+        return super(RequirementUpdate, self).form_valid(form)
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')
 class RequirementDelete(DeleteView):

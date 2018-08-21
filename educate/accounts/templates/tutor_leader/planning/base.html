@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- DateTimePicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
     <!-- Font Stylesheet-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
@@ -26,12 +28,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Control de Visitas</a>
+          <a class="navbar-brand" href="{% url 'accounts:login_redirect' %}">Control de Visitas</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'accounts:visit_list_tutor_leader' %}">Todas las Visitas</a></li>
             <li class="active"><a href="{% url 'accounts:planning_list' %}">Planificación</a></li>
+            <li><a href="{% url 'accounts:requirement_list_tutor_leader' %}">Requerimientos</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> &nbsp {{ request.user.first_name }} {{ request.user.last_name }}</a></li>
@@ -50,8 +53,14 @@
       {% endblock %}
     </div>
 
+    <!-- Bootstrap & JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- DateTimePicker & Moments-->
+    <script src="https://momentjs.com/downloads/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/locale/es.js"></script>
+    <script src="{% static 'accounts/js/dateTime.js' %}"></script>
     <script src="{% static 'accounts/js/sidebarNavigation.js' %}"></script>
     <script src="{% static 'accounts/js/color.js' %}"></script>
     {% endblock %}

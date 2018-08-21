@@ -22,9 +22,21 @@ class RequirementCreate(CreateView):
     success_url = reverse_lazy('accounts:planning_visit_create')
 
     def form_valid(self, form):
-        form.instance.created_by = self.request.user
+        form.instance.created_by = str(self.request.user)
         form.instance.user_id = self.request.user.id
         return super(RequirementCreate, self).form_valid(form)
+
+@method_decorator([login_required, tutor_leader_required], name='dispatch')
+class RequirementList(TemplateView):
+    template_name = 'tutor_leader/requirement/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RequirementList, self).get_context_data(**kwargs)
+        try: 
+            context['object_requirement'] = Requirement.objects.filter(~Q(type=None) & Q(type=3) & Q(user=self.request.user))
+        except Visit.DoesNotExist:
+            context['object_requirement'] = None
+        return context
 
 @method_decorator([login_required, tutor_leader_required], name='dispatch')
 class RequirementUpdate(UpdateView):
@@ -36,6 +48,24 @@ class RequirementUpdate(UpdateView):
         visit = Visit.objects.get(requirement=self.kwargs['pk'])
         return reverse_lazy('accounts:planning_visit_update', kwargs={'pk': visit.id})
 
+    def get_context_data(self, **kwargs):
+        context = super(RequirementUpdate, self).get_context_data(**kwargs)
+        try:
+            context['object_visit'] = Visit.objects.get(requirement__id=self.kwargs['pk'])
+        except Visit.DoesNotExist:
+            context['object_visit'] = None
+        return context
+
+    def form_valid(self, form):
+        form.instance.updated_by = str(self.request.user)
+        form.instance.user_id = self.request.user.id
+        return super(RequirementUpdate, self).form_valid(form)
+
+@method_decorator([login_required, tutor_leader_required], name='dispatch')
+class RequirementShow(DetailView):
+    model = Requirement
+    template_name = 'tutor_leader/requirement/show.html'
+
 ##############################    Visit    #####################################
 
 @method_decorator([login_required, tutor_leader_required], name='dispatch')
@@ -44,6 +74,10 @@ class VisitCreate(CreateView):
     template_name = 'tutor_leader/planning/next.html'
     form_class = VisitCreateForm
     success_url = reverse_lazy('accounts:planning_list')
+
+    def form_valid(self, form):
+        form.instance.created_by = str(self.request.user)
+        return super(VisitCreate, self).form_valid(form)
 
 @method_decorator([login_required, tutor_leader_required], name='dispatch')
 class VisitList(TemplateView):
@@ -64,9 +98,13 @@ class VisitUpdate(UpdateView):
     template_name = 'tutor_leader/planning/next.html'
     success_url = reverse_lazy('accounts:planning_list')
 
+    def form_valid(self, form):
+        form.instance.updated_by = str(self.request.user)
+        return super(VisitUpdate, self).form_valid(form)
+
 @method_decorator([login_required, tutor_leader_required], name='dispatch')
 class VisitDelete(DeleteView):
-    model = Visit
+    model = Requirement
     template_name = 'tutor_leader/planning/delete.html'
     success_url = reverse_lazy('accounts:planning_list')
 

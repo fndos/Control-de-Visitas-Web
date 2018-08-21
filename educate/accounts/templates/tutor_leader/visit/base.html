@@ -35,6 +35,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="{% url 'accounts:visit_list_tutor_leader' %}">Todas las Visitas</a></li>
             <li><a href="{% url 'accounts:planning_list' %}">Planificación</a></li>
+            <li><a href="{% url 'accounts:requirement_list_tutor_leader' %}">Requerimientos</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> &nbsp {{ request.user.first_name }} {{ request.user.last_name }}</a></li>
@@ -49,9 +50,10 @@
       <!-- Here goes your page content -->
       {% endblock %}
     </div>
-
+    <!-- Bootstrap & JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- DataTables Responsive -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>

@@ -5,7 +5,7 @@
 <div class="section-title">
   <a class="btn btn-default" href="{% url 'accounts:planning_list' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
   <a class="btn btn-primary" href="{% url 'accounts:planning_requirement_update' object.requirement.id %}"><span class='glyphicon glyphicon-edit'></span>&nbsp Editar</a>
-  <a class="btn btn-danger" href="{% url 'accounts:planning_delete' object.id %}"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</a>
+  <a class="btn btn-danger" href="{% url 'accounts:planning_delete' object.requirement.id %}"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</a>
   <hr>
 </div>
 

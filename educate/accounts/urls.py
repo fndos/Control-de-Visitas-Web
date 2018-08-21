@@ -19,6 +19,12 @@ urlpatterns = [
     path('t/users/update/<int:pk>/', views.UserUpdate.as_view(), name='user_update'),
     path('t/users/delete/<int:pk>/', views.UserDelete.as_view(), name='user_delete'),
     path('t/users/show/<int:pk>/', views.UserShow.as_view(), name='user_show'),
+    # Sector
+    path('t/sectors/create', views.SectorCreate.as_view(), name='sector_create'),
+    path('t/sectors/', views.SectorList.as_view(), name='sector_list'),
+    path('t/sectors/update/<int:pk>/', views.SectorUpdate.as_view(), name='sector_update'),
+    path('t/sectors/delete/<int:pk>/', views.SectorDelete.as_view(), name='sector_delete'),
+    path('t/sectors/show/<int:pk>/', views.SectorShow.as_view(), name='sector_show'),
     # Schools
     path('t/schools/', views.SchoolList.as_view(), name='school_list'),
     path('t/schools/create', views.SchoolCreate.as_view(), name='school_create'),
@@ -49,6 +55,9 @@ urlpatterns = [
     # Visit
     path('r/visits/', tutor_leader.VisitList.as_view(), name='visit_list_tutor_leader'),
     path('r/visits/show/<int:pk>/', tutor_leader.VisitDetail.as_view(), name='visit_show_tutor_leader'),
+    # Requeriment
+    path('r/requirements/', tutor_leader.RequirementList.as_view(), name='requirement_list_tutor_leader'),
+    path('r/requirements/show/<int:pk>/', tutor_leader.RequirementShow.as_view(), name='requirement_show_tutor_leader'),
     ############################# TUTOR (nr) ###################################
 
     ############################# TECH (nt) ####################################

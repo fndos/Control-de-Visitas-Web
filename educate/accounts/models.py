@@ -7,12 +7,13 @@ from django.db import models
 class Sector(models.Model):
     # Información General
     name = models.CharField(max_length=100)
+    description = models.TextField(null=True, max_length=200)
     # Campos de auditoria
     is_active = models.BooleanField(default=True)
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     def __str__(self):
         return '{}'.format(self.name)
@@ -33,6 +34,9 @@ class User(AbstractUser):
     phone_number = PhoneNumberField()
     user_type = models.PositiveSmallIntegerField(null=True, choices=USER_TYPE_CHOICES)
     sector = models.ManyToManyField(Sector)
+    # Campos de auditoria
+    created_by = models.CharField(max_length=100)
+    updated_by = models.CharField(null=True, max_length=100)
 
     def save(self, *args, **kwargs):
         self.password = make_password(self.password)
@@ -73,7 +77,7 @@ class School(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     def __str__(self):
         return '{}'.format(self.name)
@@ -89,10 +93,10 @@ class Requirement(models.Model):
       (3, 'Rechazado'),
     )
     # Type Choices
-    REQUIREMENT_TYPE_CHOICES = (
-      (1, 'Periódica'), # Si el requeimiento fue generado por el tech_leader
-      (2, 'Llamada'), # Si el requeimiento fue generado por el tech_leader
-      (3, 'Incidencia'), # Si el requerimiento fue generado por el tutor o tutor_leader
+    REQUIREMENT_TYPE_CHOICES = ( # Null, visita pedagógica (Visita Pedagógica)
+      (1, 'Periódica'), # Requerimiento creado por tech_leader (Visita Técnica)
+      (2, 'Llamada'), # Requerimiento creado por el tech_leader (Visita Técnica)
+      #(3, 'Incidencia'), # Requerimiento creado por tutor o tutor_leader (Visita Técnica)
     )
     # Información General
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
@@ -109,7 +113,7 @@ class Requirement(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     def __str__(self):
         return '{}'.format(self.reason)
@@ -153,7 +157,7 @@ class Visit(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     def save(self, *args, **kwargs):
         try:
@@ -177,6 +181,7 @@ class Visit(models.Model):
 
     def delete(self):
         try:
+
             requirement = Requirement.objects.get(id=self.requirement.id)
             requirement.state = 1 # Estado Pendiente
             requirement.save()
@@ -197,7 +202,7 @@ class Activity(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     def __str__(self):
         return '{}'.format(self.name)
@@ -222,7 +227,7 @@ class TechnicalForm(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     class Meta:
         db_table = 'technical_form'
@@ -236,7 +241,7 @@ class DataApciAcademico(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     class Meta:
         db_table = 'data_apci_academico'
@@ -252,7 +257,7 @@ class NoLeccionesAprobadas(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     class Meta:
         db_table = 'no_lecciones_aprobadas'
@@ -270,7 +275,7 @@ class NoAlumnosIngresados(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     class Meta:
         db_table = 'no_alumnos_ingresados'
@@ -286,7 +291,7 @@ class PromedioAcademico(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     class Meta:
         db_table = 'promedio_academico'
@@ -302,7 +307,7 @@ class NoAlumnosTrabajando(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     class Meta:
         db_table = 'no_alumnos_trabajando'
@@ -330,7 +335,7 @@ class PedagogicalForm(models.Model):
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateField(null=True) # Fecha de modificación
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     class Meta:
         db_table = 'pedagogical_form'

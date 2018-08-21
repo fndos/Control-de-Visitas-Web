@@ -1,0 +1,19 @@
+{% extends 'tech_leader/sector/base.html' %}
+
+{% block content %}
+
+<div class="section-title">
+  <a class="btn btn-default" href="{% url 'accounts:sector_list' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  <a class="btn btn-primary" href="{% url 'accounts:sector_update' object.id %}"><span class='glyphicon glyphicon-edit'></span>&nbsp Editar</a>
+  <a class="btn btn-danger" href="{% url 'accounts:sector_delete' object.id %}"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</a>
+  <hr>
+</div>
+
+<p><strong>ID: </strong>{{ object.id }}</p>
+<p><strong>Nombre: </strong>{{ object.name }}</p>
+<p><strong>Descripción: </strong>{{ object.description }}</p>
+<p><strong>Creado por: </strong>{{ object.created_by }}</p>
+<p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
+
+<hr>
+{% endblock%}

@@ -3,7 +3,13 @@
 {% block content %}
 
 <div class="section-title">
-  <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  {% ifequal form.instance.pk None %}
+    <!--Create-->
+    <a class="btn btn-default" href="{% url 'accounts:planning_list' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  {% else %}
+    <!--Update-->
+    <a class="btn btn-default" href="{% url 'accounts:planning_show' object_visit.id %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  {% endifequal %}
   <hr>
 </div>
 
