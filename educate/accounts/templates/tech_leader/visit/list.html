@@ -28,6 +28,7 @@
       <td>{{ visit.user }}</td>
       <td>
         <a class="btn btn-success" href="{% url 'accounts:visit_show' visit.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
+        <a class="btn btn-default" href="#"><span class='glyphicon glyphicon-edit'></span></a>
         <a class="btn btn-danger" href="{% url 'accounts:visit_delete' visit.id %}"><span class='glyphicon glyphicon-trash'></span></a>
       </td>
     </tr>

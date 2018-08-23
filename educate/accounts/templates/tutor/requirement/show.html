@@ -1,17 +1,17 @@
-{% extends 'tech_leader/requirement/base.html' %}
+{% extends 'tutor/requirement/base.html' %}
 
 {% block content %}
 
 <div class="section-title">
-  <a class="btn btn-default" href="{% url 'accounts:requirement_list' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
-  <a class="btn btn-primary" href="{% url 'accounts:requirement_update' object.id %}"><span class='glyphicon glyphicon-edit'></span>&nbsp Editar</a>
-  <a class="btn btn-danger" href="{% url 'accounts:requirement_delete' object.id %}"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</a>
-  <hr>
+  <a class="btn btn-default" href="{% url 'accounts:requirement_list_tutor' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+    <hr>
 </div>
 
 <p><strong>ID: </strong>{{ object.id }}</p>
 <p><strong>Motivo: </strong>{{ object.reason }}</p>
 <p><strong>Escuela: </strong>{{ object.school }}</p>
+<p><strong>Creado por: </strong>{{ object.user }}</p>
+<p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
 <p>
   <strong>Estado: </strong>
   {% if requirement.state == 1 %}

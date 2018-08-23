@@ -18,6 +18,12 @@ strong, label {
   font-size: 15px;
 }
 
+li > label {
+  font-weight: normal !important;
+  font-family: Helvetica !important;
+  font-size: 15px;
+}
+
 h3 {
   font-family: Helvetica !important;
 }
@@ -103,7 +109,7 @@ form > .btn {
   font-family: Helvetica;
 }
 
-.item-form, .item-code, .item-address {
+.item-code, .item-address {
   color: #333333 !important;
 }
 
@@ -196,6 +202,12 @@ thead {
 .sideMenu ul {
   margin: 0;
 }
+
+ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
 
 /*--------------------------------- lg ---------------------------------------*/
 

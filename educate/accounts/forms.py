@@ -17,6 +17,7 @@ class UserForm(forms.ModelForm):
             'email',
             'phone_number',
             'user_type',
+            'sector',
         ]
         labels = {
             'dni': 'Cédula',
@@ -38,6 +39,12 @@ class UserForm(forms.ModelForm):
             'phone_number': forms.TextInput(attrs={'class':'form-control'}),
             'user_type': forms.Select(attrs={'class':'form-control'}),
         }
+
+    sector = forms.ModelMultipleChoiceField(
+        queryset=Sector.objects.all(),
+        label='Sectores',
+        widget=forms.CheckboxSelectMultiple,
+        )
 
 class SectorForm(forms.ModelForm):
     class Meta:

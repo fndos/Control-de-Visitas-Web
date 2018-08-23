@@ -9,10 +9,11 @@
 
 <form method="post">
   {% csrf_token %}
-  <h3>¿Quieres eliminar esta visita?</h3>
-  <h4>Si eliminas este registro, no podrás recuperarlo.</h4>
+  <p><strong>¿Quieres eliminar esta visita?</strong></p>
+  <p>{{ object.date_planned }} - {{object.requirement.school }}</p>
+  <p>Si eliminas este registro, no podrás recuperarlo.</p>
   <hr>
-  <button class="btn btn-danger" type="submit"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar visita</button>
+  <button class="btn btn-danger" type="submit"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</button>
   <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-remove'></span>&nbsp Cancelar</a>
 </form>
 {% endblock%}

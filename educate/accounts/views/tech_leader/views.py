@@ -103,6 +103,14 @@ class SectorShow(DetailView):
     model = Sector
     template_name = 'tech_leader/sector/show.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(SectorShow, self).get_context_data(**kwargs)
+        try:
+            context['object_school'] = School.objects.filter(Q(sector=self.kwargs['pk']))
+        except Visit.DoesNotExist:
+            context['object_school'] = None
+        return context
+
 ##############################    School    ####################################
 
 @method_decorator([login_required, tech_leader_required], name='dispatch')

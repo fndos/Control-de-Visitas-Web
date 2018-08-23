@@ -27,6 +27,26 @@
   Técnico Líder
   {% endif %}
 </p>
-
 <hr>
+
+{% if object.sector.all %}
+<p><strong>Sectores: </strong></p>
+{% for sector in object.sector.all %}
+<p>{{ sector.name }}</p>
+{% endfor %}
+<hr>
+{% else %}
+<!--No hay información-->
+{% endif %}
+
+<p><strong>Creado por: </strong>{{ object.created_by }}</p>
+<p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
+{% if object.updated_by == None %}
+<!--No hay información-->
+{% else %}
+<p><strong>Modificado por: </strong>{{ object.updated_by }}</p>
+<p><strong>Fecha de modificación: </strong>{{ object.date_updated }}</p>
+{% endif %}
+<hr>
+
 {% endblock%}

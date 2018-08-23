@@ -37,6 +37,7 @@ class User(AbstractUser):
     # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
+    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
     def save(self, *args, **kwargs):
         self.password = make_password(self.password)

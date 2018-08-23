@@ -1,4 +1,4 @@
-{% extends 'tutor_leader/requirement/base.html' %}
+{% extends 'tutor/requirement/base.html' %}
 
 {% block content %}
 <div class="section-title">
@@ -45,7 +45,7 @@
         {% endif %}
       </td>
       <td>
-        <a class="btn btn-success" href="{% url 'accounts:requirement_show_tutor_leader' requirement.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
+        <a class="btn btn-success" href="{% url 'accounts:requirement_show_tutor' requirement.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
       </td>
     </tr>
     {% endfor %}

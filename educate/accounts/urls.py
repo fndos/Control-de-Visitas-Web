@@ -4,6 +4,7 @@ from django.contrib.auth.views import login, logout
 from .views.tech_leader import views
 from .views.tutor_leader import views as tutor_leader
 from .views.tech import views as tech
+from .views.tutor import views as tutor
 
 app_name = 'accounts'
 
@@ -59,7 +60,9 @@ urlpatterns = [
     path('r/requirements/', tutor_leader.RequirementList.as_view(), name='requirement_list_tutor_leader'),
     path('r/requirements/show/<int:pk>/', tutor_leader.RequirementShow.as_view(), name='requirement_show_tutor_leader'),
     ############################# TUTOR (nr) ###################################
-
+    # Requeriment
+    path('nr/requirements/', tutor.RequirementList.as_view(), name='requirement_list_tutor'),
+    path('nr/requirements/show/<int:pk>/', tutor.RequirementShow.as_view(), name='requirement_show_tutor'),
     ############################# TECH (nt) ####################################
     # Visit
     path('nt/visits/', tech.VisitList.as_view(), name='visit_list_tech'),

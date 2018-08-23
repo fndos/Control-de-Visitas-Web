@@ -32,7 +32,7 @@ class RequirementList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(RequirementList, self).get_context_data(**kwargs)
-        try: 
+        try:
             context['object_requirement'] = Requirement.objects.filter(~Q(type=None) & Q(type=3) & Q(user=self.request.user))
         except Visit.DoesNotExist:
             context['object_requirement'] = None
@@ -107,6 +107,14 @@ class VisitDelete(DeleteView):
     model = Requirement
     template_name = 'tutor_leader/planning/delete.html'
     success_url = reverse_lazy('accounts:planning_list')
+
+    def get_context_data(self, **kwargs):
+        context = super(VisitDelete, self).get_context_data(**kwargs)
+        try:
+            context['object_visit'] = Visit.objects.get(requirement__id=self.kwargs['pk'])
+        except Visit.DoesNotExist:
+            context['object_visit'] = None
+        return context
 
 @method_decorator([login_required, tutor_leader_required], name='dispatch')
 class VisitShow(DetailView):

@@ -23,7 +23,7 @@
   Si
   {% endif %}
 </p>
-<p><strong>Zona: </strong>{{ object.sector }}</p>
+<p><strong>Sector: </strong>{{ object.sector }}</p>
 <p>
   <strong>Estado: </strong>
   {% if object.is_active == True %}
@@ -32,8 +32,6 @@
   Inactivo
   {% endif %}
 </p>
-<p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
-<p><strong>Creado por: </strong>{{ object.created_by }}</p>
 <p><strong>Embajador IN: </strong>{{ object.ambassador_in }}</p>
 <p>
   <strong>Jornada: </strong>
@@ -45,5 +43,14 @@
   Matutina/Vespertina
   {% endif %}
 </p>
+<hr>
+<p><strong>Creado por: </strong>{{ object.created_by }}</p>
+<p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
+{% if object.updated_by == None %}
+<!--No hay información-->
+{% else %}
+<p><strong>Modificado por: </strong>{{ object.updated_by }}</p>
+<p><strong>Fecha de modificación: </strong>{{ object.date_updated }}</p>
+{% endif %}
 <hr>
 {% endblock%}

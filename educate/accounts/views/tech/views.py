@@ -21,7 +21,7 @@ class VisitList(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(VisitList, self).get_context_data(**kwargs)
         try:
-            context['object_visit'] = Visit.objects.filter(user=self.request.user and ~Q(requirement__type=None))
+            context['object_visit'] = Visit.objects.filter(Q(user=self.request.user) & ~Q(requirement__type=None))
         except Visit.DoesNotExist:
             context['object_visit'] = None
         return context
