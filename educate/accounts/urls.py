@@ -1,4 +1,5 @@
 from django.urls import path
+from django.conf.urls import url
 #from django.contrib.auth import login
 from django.contrib.auth.views import login, logout
 from .views.tech_leader import views
@@ -53,6 +54,8 @@ urlpatterns = [
     path('r/planning/update/requirement/<int:pk>/', tutor_leader.RequirementUpdate.as_view(), name='planning_requirement_update'),
     path('r/planning/update/visit/<int:pk>/', tutor_leader.VisitUpdate.as_view(), name='planning_visit_update'),
     path('r/planning/delete/<int:pk>/', tutor_leader.VisitDelete.as_view(), name='planning_delete'),
+    # AJAX
+    url(r'^r/planning/ajax/$', tutor_leader.ItemUpdate, name='planning_item_update'),
     # Visit
     path('r/visits/', tutor_leader.VisitList.as_view(), name='visit_list_tutor_leader'),
     path('r/visits/show/<int:pk>/', tutor_leader.VisitDetail.as_view(), name='visit_show_tutor_leader'),
@@ -60,6 +63,16 @@ urlpatterns = [
     path('r/requirements/', tutor_leader.RequirementList.as_view(), name='requirement_list_tutor_leader'),
     path('r/requirements/show/<int:pk>/', tutor_leader.RequirementShow.as_view(), name='requirement_show_tutor_leader'),
     ############################# TUTOR (nr) ###################################
+    # Planning
+    path('nr/planning/', tutor.PlanningList.as_view(), name='planning_list_tutor'),
+    path('nr/planning/create/requirement', tutor.RequirementCreate.as_view(), name='planning_requirement_create_tutor'),
+    path('nr/planning/create/visit', tutor.VisitCreate.as_view(), name='planning_visit_create_tutor'),
+    path('nr/planning/show/<int:pk>/', tutor.VisitShow.as_view(), name='planning_show_tutor'),
+    path('nr/planning/update/requirement/<int:pk>/', tutor.RequirementUpdate.as_view(), name='planning_requirement_update_tutor'),
+    path('nr/planning/update/visit/<int:pk>/', tutor.VisitUpdate.as_view(), name='planning_visit_update_tutor'),
+    path('nr/planning/delete/<int:pk>/', tutor.VisitDelete.as_view(), name='planning_delete_tutor'),
+    # AJAX
+    url(r'^nr/planning/ajax/$', tutor.ItemUpdate, name='planning_item_update'),
     # Requeriment
     path('nr/requirements/', tutor.RequirementList.as_view(), name='requirement_list_tutor'),
     path('nr/requirements/show/<int:pk>/', tutor.RequirementShow.as_view(), name='requirement_show_tutor'),

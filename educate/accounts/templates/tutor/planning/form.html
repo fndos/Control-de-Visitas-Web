@@ -1,0 +1,28 @@
+{% extends 'tutor/planning/base.html' %}
+
+{% block content %}
+
+<div class="section-title">
+  {% ifequal form.instance.pk None %}
+    <!--Create-->
+    <a class="btn btn-default" href="{% url 'accounts:planning_list_tutor' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  {% else %}
+    <!--Update-->
+    <a class="btn btn-default" href="{% url 'accounts:planning_show_tutor' object_visit.id %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  {% endifequal %}
+  <hr>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <hr>
+  {% ifequal form.instance.pk None %}
+    <!--Create-->
+    <button class="btn btn-success" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar y continuar</button>
+  {% else %}
+    <!--Update-->
+    <button class="btn btn-primary" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar cambios y continuar</button>
+  {% endifequal %}
+</form>
+{% endblock%}

@@ -26,6 +26,10 @@ li > label {
 
 h3 {
   font-family: Helvetica !important;
+  text-align: center;
+  margin-top: 0px;
+  color: #ff6c00;
+  font-weight: bold;
 }
 
 form > .btn {
@@ -68,6 +72,12 @@ form > .btn {
   background-color: #ffb347 !important;
 }
 /*------------------------- Planning + Calendar  -----------------------------*/
+
+::-webkit-scrollbar {
+    width: 0px !important;  /* remove scrollbar space */
+    background: transparent !important;  /* optional: just make scrollbar invisible */
+}
+
 .item {
   /*background-color: #f9ffbe !important;*/
   border-color: #d3dce6 !important;
@@ -119,10 +129,12 @@ form > .btn {
 
 /*----------------------------- Data Tables ----------------------------------*/
 
-thead {
+thead, .dtr-title {
     font-weight: 600 !important;
     font-family: Helvetica;
 }
+
+
 
 .table.table-striped.table-bordered.dt-responsive.nowrap > tbody > tr > td > .btn {
   padding: 0px;

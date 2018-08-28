@@ -1,0 +1,26 @@
+{% extends 'tutor/planning/base.html' %}
+
+{% block content %}
+
+<div class="section-title">
+  <a class="btn btn-default" href="{% url 'accounts:planning_list_tutor' %}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  <a class="btn btn-primary" href="{% url 'accounts:planning_requirement_update_tutor' object.requirement.id %}"><span class='glyphicon glyphicon-edit'></span>&nbsp Editar</a>
+  <a class="btn btn-danger" href="{% url 'accounts:planning_delete_tutor' object.requirement.id %}"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</a>
+  <hr>
+</div>
+
+<p><strong>Fecha: </strong>{{ object.date_planned }}</p>
+<p><strong>Motivo: </strong>{{ object.requirement }}</p>
+<p><strong>Escuela: </strong>{{ object.requirement.school }}</p>
+<p><strong>Responsable: </strong>{{ object.user }}</p>
+<hr>
+<p><strong>Creado por: </strong>{{ object.created_by }}</p>
+<p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
+{% if object.updated_by == None %}
+<!--No hay información-->
+{% else %}
+<p><strong>Modificado por: </strong>{{ object.updated_by }}</p>
+<p><strong>Fecha de modificación: </strong>{{ object.date_updated }}</p>
+{% endif %}
+<hr>
+{% endblock%}

@@ -140,7 +140,7 @@ class VisitForm(forms.ModelForm):
         }
 
     requirement = forms.ModelChoiceField(
-        queryset=Requirement.objects.filter(state=1),
+        queryset=Requirement.objects.filter(~Q(type=None) & Q(state=1)),
         label='Motivo',
         widget=forms.Select(attrs={'class':'form-control'}),
         )
@@ -184,16 +184,20 @@ class VisitCreateForm(forms.ModelForm):
             'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'datetime'}),
         }
 
-    requirement = forms.ModelChoiceField(
-        queryset=Requirement.objects.filter(state=1),
-        label='Motivo',
-        widget=forms.Select(attrs={'class':'form-control'}),
+    def __init__(self, *args, **kwargs):
+        # important to "pop" added kwarg before call to parent's constructor
+        self.request = kwargs.pop('request')
+        super(VisitCreateForm, self).__init__(*args, **kwargs)
+        self.fields['requirement'] = forms.ModelChoiceField(
+            queryset=Requirement.objects.filter(Q(type=None) & Q(state=1) & Q(user=self.request.user)),
+            label = 'Motivo',
+            widget=forms.Select(attrs={'class':'form-control'}),
         )
-
-    user = forms.ModelChoiceField(
-        queryset=User.objects.filter(Q(user_type=1) | Q(user_type=3)), # Si el usuario es Tutor o Tutor Leader
-        label='Responsable',
-        widget=forms.Select(attrs={'class':'form-control'}),
+        self.fields['user'] = forms.ModelChoiceField(
+            queryset=User.objects.filter(Q(user_type=1) | Q(user_type=3)), # Si el usuario es Tutor o Tutor Leader
+            #queryset=User.objects.filter(Q(id=self.request.user.id)),
+            label='Responsable',
+            widget=forms.Select(attrs={'class':'form-control'}),
         )
 
 class VisitUpdateForm(forms.ModelForm):
@@ -210,8 +214,69 @@ class VisitUpdateForm(forms.ModelForm):
             'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'datetime'}),
         }
 
-    user = forms.ModelChoiceField(
-        queryset=User.objects.filter(Q(user_type=1) | Q(user_type=3)), # Si el usuario es Tutor o Tutor Leader
-        label='Responsable',
-        widget=forms.Select(attrs={'class':'form-control'}),
+    def __init__(self, *args, **kwargs):
+        # important to "pop" added kwarg before call to parent's constructor
+        self.request = kwargs.pop('request')
+        super(VisitUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['user'] = forms.ModelChoiceField(
+            queryset=User.objects.filter(Q(user_type=1) | Q(user_type=3)), # Si el usuario es Tutor o Tutor Leader
+            #queryset=User.objects.filter(Q(id=self.request.user.id)),
+            label='Responsable',
+            widget=forms.Select(attrs={'class':'form-control'}),
+        )
+
+################################## TUTOR (nr) ##################################
+
+class VisitCreateTutorForm(forms.ModelForm):
+    class Meta:
+        model = Visit
+        fields = [
+            'date_planned',
+            'requirement',
+            'user',
+        ]
+        labels = {
+            'date_planned': 'Fecha',
+        }
+        widgets = {
+            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'datetime'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        # important to "pop" added kwarg before call to parent's constructor
+        self.request = kwargs.pop('request')
+        super(VisitCreateTutorForm, self).__init__(*args, **kwargs)
+        self.fields['requirement'] = forms.ModelChoiceField(
+            queryset=Requirement.objects.filter(Q(type=None) & Q(state=1) & Q(user=self.request.user)),
+            label = 'Motivo',
+            widget=forms.Select(attrs={'class':'form-control'}),
+        )
+        self.fields['user'] = forms.ModelChoiceField(
+            queryset=User.objects.filter(Q(id=self.request.user.id)),
+            label='Responsable',
+            widget=forms.Select(attrs={'class':'form-control'}),
+        )
+
+class VisitUpdateTutorForm(forms.ModelForm):
+    class Meta:
+        model = Visit
+        fields = [
+            'date_planned',
+            'user',
+        ]
+        labels = {
+            'date_planned': 'Fecha',
+        }
+        widgets = {
+            'date_planned': forms.TextInput(attrs={'class':'form-control', 'type':'datetime'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        # important to "pop" added kwarg before call to parent's constructor
+        self.request = kwargs.pop('request')
+        super(VisitUpdateTutorForm, self).__init__(*args, **kwargs)
+        self.fields['user'] = forms.ModelChoiceField(
+            queryset=User.objects.filter(Q(id=self.request.user.id)), 
+            label='Responsable',
+            widget=forms.Select(attrs={'class':'form-control'}),
         )

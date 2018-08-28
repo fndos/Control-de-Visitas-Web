@@ -1,4 +1,4 @@
-{% extends 'tutor_leader/planning/base.html' %}
+{% extends 'tutor/planning/base.html' %}
 
 {% load static %}
 {% block head %}
@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="section-title">
-  <a class="btn btn-success" href="{% url 'accounts:planning_requirement_create' %}"><span class='glyphicon glyphicon-plus-sign'></span>&nbsp Nueva Visita</a>
+  <a class="btn btn-success" href="{% url 'accounts:planning_requirement_create_tutor' %}"><span class='glyphicon glyphicon-plus-sign'></span>&nbsp Nueva Visita</a>
   <hr>
 </div>
 
@@ -26,7 +26,7 @@
   <div id="rewrite" class="pre-scrollable col col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div id="bool"></div>
     {% for visit in object_visit %}
-    <a href="{% url 'accounts:planning_show' visit.id %}">
+    <a href="{% url 'accounts:planning_show_tutor' visit.id %}">
       <div class="item">
         <div class="row">
           <p class="item-time col col-lg-12 col-md-12 col-sm-12 col-xs-12">{{ visit.date_planned }}</p>

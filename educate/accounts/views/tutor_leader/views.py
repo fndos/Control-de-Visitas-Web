@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -7,6 +7,10 @@ from django.db import connection
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, TemplateView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
+from django.http import JsonResponse
+from django.core.serializers import serialize
+from datetime import datetime
+import json
 
 from ... models import Requirement, Visit
 from ... forms import VisitCreateForm, VisitUpdateForm, RequirementCreateForm
@@ -75,9 +79,15 @@ class VisitCreate(CreateView):
     form_class = VisitCreateForm
     success_url = reverse_lazy('accounts:planning_list')
 
+    def get_form_kwargs(self):
+        kw = super(VisitCreate, self).get_form_kwargs()
+        kw['request'] = self.request # the trick!
+        return kw
+
     def form_valid(self, form):
         form.instance.created_by = str(self.request.user)
         return super(VisitCreate, self).form_valid(form)
+
 
 @method_decorator([login_required, tutor_leader_required], name='dispatch')
 class VisitList(TemplateView):
@@ -134,8 +144,25 @@ class PlanningList(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(PlanningList, self).get_context_data(**kwargs)
+        date_planned = datetime.now()
+        date_planned = date_planned.strftime("%Y-%m-%d")
         try:
-            context['object_visit'] = Visit.objects.filter(user=self.request.user).order_by('date_planned')
+            context['object_visit'] = Visit.objects.filter(Q(user=self.request.user) & Q(date_planned__contains=date_planned)).order_by('date_planned')
+            query_set = Visit.objects.filter(Q(user=self.request.user)).order_by('date_planned')
+            data = []
+            for visit in query_set:
+                data.append(str(visit.date_planned.date()))
+            context['data'] = list(set(data))
+            print(list(set(data)))
         except Visit.DoesNotExist:
             context['object_visit'] = None
+            context['data'] = None
         return context
+
+@login_required
+def ItemUpdate(request):
+    try:
+        query_set = Visit.objects.filter(Q(user=request.user) & Q(date_planned__contains=request.GET.get('date_planned'))).order_by('date_planned')
+    except Visit.DoesNotExist:
+        query_set = None
+    return render(request, 'tutor_leader/planning/items.html', {'object_visit':query_set})
