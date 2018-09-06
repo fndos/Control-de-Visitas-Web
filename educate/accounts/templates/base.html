@@ -26,35 +26,45 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{% url 'accounts:login_redirect' %}">Control de Visitas</a>
+          <a class="navbar-brand" href="#">Control de Visitas</a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li><a href="{% url 'accounts:user_list' %}">Usuarios</a></li>
-            <li><a href="{% url 'accounts:school_list' %}">Escuelas</a></li>
-            <li><a href="#">Visitas</a></li>
-            <li><a href="#">Requerimientos</a></li>
+            <li class="active"><a href="#">Restaurar Contraseña</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ request.user.first_name }} {{ request.user.last_name }}</a></li>
-            <li><a href="{% url 'accounts:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesión</a></li>
+            <li><a href="{% url 'accounts:login' %}"><span class="glyphicon glyphicon-log-in"></span> &nbsp Iniciar Sesión</a></li>
           </ul>
         </div>
       </div>
     </nav>
 
     <div class="container">
+
+      <div class="section-title">
+        <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+        <hr>
+      </div>
       {% block content %}
       <!-- Here goes your page content -->
-      <div class="section-title">
-        <h1>Welcome to your home page, you are tech_leader</h1>
-      </div>
       {% endblock %}
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{% static 'accounts/js/sidebarNavigation.js' %}"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('input').addClass("btn btn-success");
+        $('#id_username_or_email').removeClass("btn btn-success").addClass("form-control");
+        $('#id_password1').removeClass("btn btn-success").addClass("form-control");
+        $('#id_password2').removeClass("btn btn-success").addClass("form-control");
+        $('#id_username_or_email').after("<hr>");
+        $('#id_password2').after("<hr>");
+      });
+    </script>
+
     {% endblock %}
   </body>
 </html>

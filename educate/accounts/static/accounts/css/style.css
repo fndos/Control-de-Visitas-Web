@@ -32,6 +32,15 @@ h3 {
   font-weight: bold;
 }
 
+.header {
+  text-align: left !important;
+}
+
+.sub-header {
+  text-align: left !important;
+  font-size: 18px !important;
+}
+
 form > .btn {
   margin-bottom: 20px;
 }
@@ -134,8 +143,6 @@ thead, .dtr-title {
     font-family: Helvetica;
 }
 
-
-
 .table.table-striped.table-bordered.dt-responsive.nowrap > tbody > tr > td > .btn {
   padding: 0px;
   padding-top: 2.5px;
@@ -161,6 +168,10 @@ thead, .dtr-title {
   display: inline-block;
   float: right;
   margin-bottom: 5px;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /*-------------------------- Sidebar Navigation ------------------------------*/

@@ -12,7 +12,7 @@ from django.core.serializers import serialize
 from datetime import datetime
 import json
 
-from ... models import Requirement, Visit
+from ... models import Requirement, Visit, TechnicalForm, PedagogicalForm
 from ... forms import VisitCreateForm, VisitUpdateForm, RequirementCreateForm
 from ... decorators import tutor_leader_required
 
@@ -131,10 +131,36 @@ class VisitShow(DetailView):
     model = Visit
     template_name = 'tutor_leader/planning/show.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(VisitShow, self).get_context_data(**kwargs)
+        try:
+            #obtener información de los formularios
+            context['object_technical_form'] = TechnicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            print(context['object_pedagogical_form'])
+        except TechnicalForm.DoesNotExist:
+            context['object_technical_form'] = None
+        except  PedagogicalForm.DoesNotExist:
+            context['object_pedagogical_form'] = None
+        return context
+
 @method_decorator([login_required, tutor_leader_required], name='dispatch')
 class VisitDetail(DetailView):
     model = Visit
     template_name = 'tutor_leader/visit/show.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(VisitDetail, self).get_context_data(**kwargs)
+        try:
+            #obtener información de los formularios
+            context['object_technical_form'] = TechnicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            print(context['object_pedagogical_form'])
+        except TechnicalForm.DoesNotExist:
+            context['object_technical_form'] = None
+        except  PedagogicalForm.DoesNotExist:
+            context['object_pedagogical_form'] = None
+        return context
 
 ############################    Planning    ####################################
 

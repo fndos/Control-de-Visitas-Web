@@ -12,7 +12,7 @@ from django.core.serializers import serialize
 from datetime import datetime
 import json
 
-from ... models import Requirement, Visit
+from ... models import Requirement, Visit, TechnicalForm, PedagogicalForm
 from ... forms import VisitCreateTutorForm, VisitUpdateTutorForm, RequirementCreateForm
 from ... decorators import tutor_required
 
@@ -123,6 +123,19 @@ class VisitShow(DetailView):
     model = Visit
     template_name = 'tutor/planning/show.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(VisitShow, self).get_context_data(**kwargs)
+        try:
+            #obtener información de los formularios
+            context['object_technical_form'] = TechnicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            print(context['object_pedagogical_form'])
+        except TechnicalForm.DoesNotExist:
+            context['object_technical_form'] = None
+        except  PedagogicalForm.DoesNotExist:
+            context['object_pedagogical_form'] = None
+        return context
+
 ############################    Planning    ####################################
 
 @method_decorator([login_required, tutor_required], name='dispatch')
@@ -152,4 +165,4 @@ def ItemUpdate(request):
         query_set = Visit.objects.filter(Q(user=request.user) & Q(date_planned__contains=request.GET.get('date_planned'))).order_by('date_planned')
     except Visit.DoesNotExist:
         query_set = None
-    return render(request, 'tutor_leader/planning/items.html', {'object_visit':query_set})
+    return render(request, 'tutor/planning/items.html', {'object_visit':query_set})

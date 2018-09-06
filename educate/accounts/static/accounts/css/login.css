@@ -17,6 +17,7 @@ button {
   width: 110px;
   height: 35px;
   margin: auto;
+  margin-bottom: 10px !important;
 }
 
 input {
@@ -32,4 +33,8 @@ label {
 img, .fieldWrapper {
   margin-bottom: 30px;
   padding-right: 5px;
+}
+
+.forget {
+  margin-top: 10px !important;
 }

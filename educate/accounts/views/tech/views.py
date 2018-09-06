@@ -7,34 +7,59 @@ from django.db import connection
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, TemplateView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
+from datetime import datetime
 
-from ... models import User, School, Requirement, Visit
+from ... models import User, School, Requirement, Visit, TechnicalForm, PedagogicalForm
 from ... forms import UserForm, SchoolForm, RequirementForm, VisitForm
 from ... decorators import tech_required
 
 ##############################    Visit    #####################################
 
 @method_decorator([login_required, tech_required], name='dispatch')
-class VisitList(TemplateView):
-    template_name = 'tech/visit/list.html'
-    #  ~Q(requirement__type=None) Visualizar sólo visitas Técnicas
-    def get_context_data(self, **kwargs):
-        context = super(VisitList, self).get_context_data(**kwargs)
-        try:
-            context['object_visit'] = Visit.objects.filter(Q(user=self.request.user) & ~Q(requirement__type=None))
-        except Visit.DoesNotExist:
-            context['object_visit'] = None
-        return context
-
-@method_decorator([login_required, tech_required], name='dispatch')
 class VisitShow(DetailView):
     model = Visit
-    template_name = 'tech/visit/show.html'
+    template_name = 'tech/planning/show.html'
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super(VisitShow, self).get_context_data(**kwargs)
-        # Add extra context from another model
-        context['object_requirement'] = Requirement.objects.all()
-        context['object_school'] = School.objects.all()
+        try:
+            #obtener información de los formularios
+            context['object_technical_form'] = TechnicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            print(context['object_pedagogical_form'])
+        except TechnicalForm.DoesNotExist:
+            context['object_technical_form'] = None
+        except  PedagogicalForm.DoesNotExist:
+            context['object_pedagogical_form'] = None
         return context
+
+############################    Planning    ####################################
+
+@method_decorator([login_required, tech_required], name='dispatch')
+class PlanningList(TemplateView):
+    template_name = 'tech/planning/list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(PlanningList, self).get_context_data(**kwargs)
+        date_planned = datetime.now()
+        date_planned = date_planned.strftime("%Y-%m-%d")
+        try:
+            context['object_visit'] = Visit.objects.filter(Q(user=self.request.user) & Q(date_planned__contains=date_planned)).order_by('date_planned')
+            query_set = Visit.objects.filter(Q(user=self.request.user)).order_by('date_planned')
+            data = []
+            for visit in query_set:
+                data.append(str(visit.date_planned.date()))
+            context['data'] = list(set(data))
+            print(list(set(data)))
+        except Visit.DoesNotExist:
+            context['object_visit'] = None
+            context['data'] = None
+        return context
+
+@login_required
+def ItemUpdate(request):
+    try:
+        query_set = Visit.objects.filter(Q(user=request.user) & Q(date_planned__contains=request.GET.get('date_planned'))).order_by('date_planned')
+    except Visit.DoesNotExist:
+        query_set = None
+    return render(request, 'tech/planning/items.html', {'object_visit':query_set})

@@ -72,12 +72,14 @@ urlpatterns = [
     path('nr/planning/update/visit/<int:pk>/', tutor.VisitUpdate.as_view(), name='planning_visit_update_tutor'),
     path('nr/planning/delete/<int:pk>/', tutor.VisitDelete.as_view(), name='planning_delete_tutor'),
     # AJAX
-    url(r'^nr/planning/ajax/$', tutor.ItemUpdate, name='planning_item_update'),
+    url(r'^nr/planning/ajax/$', tutor.ItemUpdate, name='planning_item_update_tutor'),
     # Requeriment
     path('nr/requirements/', tutor.RequirementList.as_view(), name='requirement_list_tutor'),
     path('nr/requirements/show/<int:pk>/', tutor.RequirementShow.as_view(), name='requirement_show_tutor'),
     ############################# TECH (nt) ####################################
-    # Visit
-    path('nt/visits/', tech.VisitList.as_view(), name='visit_list_tech'),
-    path('nt/visits/show/<int:pk>/', tech.VisitShow.as_view(), name='visit_show_tech'),
+    # Planning
+    path('nt/planning/', tech.PlanningList.as_view(), name='planning_list_tech'),
+    path('nt/planning/show/<int:pk>/', tech.VisitShow.as_view(), name='planning_show_tech'),
+    # AJAX
+    url(r'^nt/planning/ajax/$', tech.ItemUpdate, name='planning_item_update_tech'),
 ]

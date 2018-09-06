@@ -1,0 +1,55 @@
+{% extends 'tech/planning/base.html' %}
+
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'accounts/css/bootstrap-datepicker.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="section-title">
+  <a class="btn btn-default" href="#"><span class='glyphicon glyphicon-plus-sign'></span>&nbsp Nueva Visita</a>
+  <hr>
+</div>
+
+<div class="row">
+  <!--Title List-->
+  <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <h3 id=date_header></h3>
+  </div>
+</div>
+
+<div class="row">
+  {% if object_visit %}
+
+  <!--Planning List-->
+  <div id="rewrite" class="pre-scrollable col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div id="bool"></div>
+    {% for visit in object_visit %}
+    <a href="{% url 'accounts:planning_show_tech' visit.id %}">
+      <div class="item">
+        <div class="row">
+          <p class="item-time col col-lg-12 col-md-12 col-sm-12 col-xs-12">{{ visit.date_planned }}</p>
+          <p class="item-code col col-lg-4 col-md-4 col-sm-4 col-xs-4 ">{{ visit.requirement.school.amie }}</p>
+          <p class="item-name col col-lg-8 col-md-8 col-sm-8 col-xs-8">{{ visit.requirement.school }}</p>
+          <p class="item-address col col-lg-12 col-md-12 col-sm-12 col-xs-12">{{ visit.requirement.school.address }}</p>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <!--Empty Planning List-->
+  <div id="rewrite" class="scrollable col col-lg-6 col-md-6 col-sm-6 col-xs-12">
+    <div class="item-empty">
+      <div class="row">
+        <p class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">NO HAY VISITAS</p>
+        <p class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">PROGRAMADAS</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <!--Calendario-->
+  <div id=calendar class="col col-lg-6 col-md-6 col-sm-6 col-xs-12"></div>
+</div><!-- /row -->
+{% endblock%}

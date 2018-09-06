@@ -31,13 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'phonenumber_field',
+    'password_reset',
     'accounts',
 ]
 
@@ -138,3 +139,5 @@ LOGOUT_REDIRECT_URL = '/accounts/login'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 #LOGIN_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only

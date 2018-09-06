@@ -34,8 +34,8 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li><a href="{% url 'accounts:visit_list_tutor_leader' %}">Todas las Visitas</a></li>
             <li class="active"><a href="{% url 'accounts:planning_list' %}">Planificación</a></li>
+            <li><a href="{% url 'accounts:visit_list_tutor_leader' %}">Todas las Visitas</a></li>
             <li><a href="{% url 'accounts:requirement_list_tutor_leader' %}">Requerimientos</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -81,6 +81,7 @@
       };
 
       $(document).ready(function () {
+        //Setup calendar
         var today = new Date();
         var today = today.getDate() + "/" + (today.getMonth()+1) + "/" + today.getFullYear();
         $('#date_header').html(getFormatter(today));
@@ -109,6 +110,50 @@
       });
 
       $(document).bind("DOMSubtreeModified", checkClass);
+
+      //Setup show & hide function for links
+      $('#my-link-1').click(function () {
+        if ($('#my-table-1').hasClass( "hidden" )) {
+          $('#my-table-1').removeClass("hidden");
+          $('#my-link-1').html('Mostrar menos');
+        } else {
+          $('#my-table-1').addClass("hidden");
+          $('#my-link-1').html('Mostrar más');
+        }
+      });
+
+      //Setup show & hide function for links
+      $('#my-link-2').click(function () {
+        if ($('#my-table-2').hasClass( "hidden" )) {
+          $('#my-table-2').removeClass("hidden");
+          $('#my-link-2').html('Mostrar menos');
+        } else {
+          $('#my-table-2').addClass("hidden");
+          $('#my-link-2').html('Mostrar más');
+        }
+      });
+
+      //Setup show & hide function for links
+      $('#my-link-3').click(function () {
+        if ($('#my-table-3').hasClass( "hidden" )) {
+          $('#my-table-3').removeClass("hidden");
+          $('#my-link-3').html('Mostrar menos');
+        } else {
+          $('#my-table-3').addClass("hidden");
+          $('#my-link-3').html('Mostrar más');
+        }
+      });
+
+      //Setup show & hide function for links
+      $('#my-link-4').click(function () {
+        if ($('#my-table-4').hasClass( "hidden" )) {
+          $('#my-table-4').removeClass("hidden");
+          $('#my-link-4').html('Mostrar menos');
+        } else {
+          $('#my-table-4').addClass("hidden");
+          $('#my-link-4').html('Mostrar más');
+        }
+      });
 
       function checkClass() {
         if($('#bool').length){

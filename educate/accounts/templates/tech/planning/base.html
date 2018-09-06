@@ -34,8 +34,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'accounts:planning_list_tutor' %}">Planificación</a></li>
-            <li><a href="{% url 'accounts:requirement_list_tutor' %}">Requerimientos</a></li>
+            <li class="active"><a href="{% url 'accounts:planning_list_tech' %}">Planificación</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> &nbsp {{ request.user.first_name }} {{ request.user.last_name }}</a></li>
@@ -48,9 +47,6 @@
     <div class="container">
       {% block content %}
       <!-- Here goes your page content -->
-      <div class="section-title">
-        <h1>Welcome to your home page, you are tech_leader</h1>
-      </div>
       {% endblock %}
     </div>
 

@@ -9,11 +9,344 @@
   <hr>
 </div>
 
+<h3 class="header">Información General</h3>
 <p><strong>Fecha: </strong>{{ object.date_planned }}</p>
 <p><strong>Motivo: </strong>{{ object.requirement }}</p>
 <p><strong>Escuela: </strong>{{ object.requirement.school }}</p>
 <p><strong>Responsable: </strong>{{ object.user }}</p>
 <hr>
+
+<!--Caso particular: 1 - No, 2 - Si-->
+{% for pedagogical_form in object_pedagogical_form %}
+  <h3 class="header">Formulario Pedagógico</h3>
+  <p><strong>Acción tomada: </strong>{{ pedagogical_form.action_taken }}</p>
+
+  <p>
+    <strong>Extracurricular: </strong>
+    {% if pedagogical_form.extracurricular == 1 %}
+    No
+    {% elif pedagogical_form.extracurricular == 2 %}
+    Si
+    {% endif %}
+  </p>
+
+  <p>
+    <strong>Internet: </strong>
+    {% if pedagogical_form.internet == 1 %}
+    No
+    {% elif pedagogical_form.internet == 2 %}
+    Si
+    {% endif %}
+  </p>
+
+  <h3 class="sub-header">Datos APCI y académicos</h3>
+  <p><strong>Número de profesores capacitados: </strong>{{ pedagogical_form.no_prof_capacitados }}</p>
+  <p><strong>Minutos de uso: </strong>{{pedagogical_form.minutos_uso}}</p>
+
+  <p><strong>Número de alumnos ingresados: </strong><a id="my-link-1">Mostrar más</a></p>
+  <table class="table table-striped table-bordered dt-responsive nowrap hidden" cellspacing="0" width="100%" id="my-table-1">
+    <thead>
+      <tr>
+        <td>NÚMERO DE ALUMNOS INGRESADOS</td>
+        <td>A</td>
+        <td>B</td>
+        <td>C</td>
+        <td>TOTAL</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>2doEGB</strong></td>
+        <td>{{ pedagogical_form.AI_2doEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_2doEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_2doEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_2doEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>3roEGB</strong></td>
+        <td>{{ pedagogical_form.AI_3roEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_3roEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_3roEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_3roEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>4toEGB</strong></td>
+        <td>{{ pedagogical_form.AI_4toEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_4toEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_4toEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_4toEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>5toEGB</strong></td>
+        <td>{{ pedagogical_form.AI_5toEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_5toEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_5toEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_5toEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>6toEGB</strong></td>
+        <td>{{ pedagogical_form.AI_6toEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_6toEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_6toEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_6toEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>7moEGB</strong></td>
+        <td>{{ pedagogical_form.AI_7moEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_7moEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_7moEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_7moEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>8voEGB</strong></td>
+        <td>{{ pedagogical_form.AI_8voEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_8voEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_8voEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_8voEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>9noEGB</strong></td>
+        <td>{{ pedagogical_form.AI_9noEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_9noEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_9noEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_9noEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>10moEGB</strong></td>
+        <td>{{ pedagogical_form.AI_10moEGB_A }}</td>
+        <td>{{ pedagogical_form.AI_10moEGB_B }}</td>
+        <td>{{ pedagogical_form.AI_10moEGB_C }}</td>
+        <td>{{ pedagogical_form.AI_10moEGB_TOTAL }}</td>
+      </tr>
+      <tr>
+        <td><strong>TOTAL/PROMEDIO</strong></td>
+        <td>{{ pedagogical_form.AI_TOTAL_PROMEDIO_A }}</td>
+        <td>{{ pedagogical_form.AI_TOTAL_PROMEDIO_B }}</td>
+        <td>{{ pedagogical_form.AI_TOTAL_PROMEDIO_C }}</td>
+        <td>{{ pedagogical_form.AI_TOTAL_PROMEDIO_TOTAL }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Número de alumnos trabajando: </strong><a id="my-link-2">Mostrar más</a></p>
+  <table class="table table-striped table-bordered dt-responsive nowrap hidden" cellspacing="0" width="100%" id="my-table-2">
+    <thead>
+      <tr>
+        <td>NÚMERO DE ALUMNOS TRABAJANDO</td>
+        <td>LENGUAJE</td>
+        <td>MATEMÁTICA</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>2doEGB</strong></td>
+        <td>{{ pedagogical_form.AT_2doEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_2doEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>3roEGB</strong></td>
+        <td>{{ pedagogical_form.AT_3roEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_3roEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>4toEGB</strong></td>
+        <td>{{ pedagogical_form.AT_4toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_4toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>5toEGB</strong></td>
+        <td>{{ pedagogical_form.AT_5toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_5toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>6toEGB</strong></td>
+        <td>{{ pedagogical_form.AT_6toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_6toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>7moEGB</strong></td>
+        <td>{{ pedagogical_form.AT_7moEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_7moEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>8voEGB</strong></td>
+        <td>{{ pedagogical_form.AT_8voEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_8voEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>9noEGB</strong></td>
+        <td>{{ pedagogical_form.AT_9noEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_9noEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>10moEGB</strong></td>
+        <td>{{ pedagogical_form.AT_10moEGB_LEN }}</td>
+        <td>{{ pedagogical_form.AT_10moEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>TOTAL/PROMEDIO</strong></td>
+        <td>{{ pedagogical_form.AT_TOTAL_PROMEDIO_LEN }}</td>
+        <td>{{ pedagogical_form.AT_TOTAL_PROMEDIO_MAT }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Número de lecciones aprobadas: </strong><a id="my-link-3">Mostrar más</a></p>
+  <table class="table table-striped table-bordered dt-responsive nowrap hidden" cellspacing="0" width="100%" id="my-table-3">
+    <thead>
+      <tr>
+        <td>NÚMERO DE LECCIONES APROBADAS</td>
+        <td>LENGUAJE</td>
+        <td>MATEMÁTICA</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>2doEGB</strong></td>
+        <td>{{ pedagogical_form.LA_2doEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_2doEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>3roEGB</strong></td>
+        <td>{{ pedagogical_form.LA_3roEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_3roEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>4toEGB</strong></td>
+        <td>{{ pedagogical_form.LA_4toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_4toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>5toEGB</strong></td>
+        <td>{{ pedagogical_form.LA_5toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_5toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>6toEGB</strong></td>
+        <td>{{ pedagogical_form.LA_6toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_6toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>7moEGB</strong></td>
+        <td>{{ pedagogical_form.LA_7moEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_7moEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>8voEGB</strong></td>
+        <td>{{ pedagogical_form.LA_8voEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_8voEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>9noEGB</strong></td>
+        <td>{{ pedagogical_form.LA_9noEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_9noEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>10moEGB</strong></td>
+        <td>{{ pedagogical_form.LA_10moEGB_LEN }}</td>
+        <td>{{ pedagogical_form.LA_10moEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>TOTAL/PROMEDIO</strong></td>
+        <td>{{ pedagogical_form.LA_TOTAL_PROMEDIO_LEN }}</td>
+        <td>{{ pedagogical_form.LA_TOTAL_PROMEDIO_MAT }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Promedio académico: </strong><a id="my-link-4">Mostrar más</a></p>
+  <table class="table table-striped table-bordered dt-responsive nowrap hidden" cellspacing="0" width="100%" id="my-table-4">
+    <thead>
+      <tr>
+        <td>PROMEDIO ACADÉMICO</td>
+        <td>LENGUAJE</td>
+        <td>MATEMÁTICA</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>2doEGB</strong></td>
+        <td>{{ pedagogical_form.PA_2doEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_2doEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>3roEGB</strong></td>
+        <td>{{ pedagogical_form.PA_3roEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_3roEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>4toEGB</strong></td>
+        <td>{{ pedagogical_form.PA_4toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_4toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>5toEGB</strong></td>
+        <td>{{ pedagogical_form.PA_5toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_5toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>6toEGB</strong></td>
+        <td>{{ pedagogical_form.PA_6toEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_6toEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>7moEGB</strong></td>
+        <td>{{ pedagogical_form.PA_7moEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_7moEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>8voEGB</strong></td>
+        <td>{{ pedagogical_form.PA_8voEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_8voEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>9noEGB</strong></td>
+        <td>{{ pedagogical_form.PA_9noEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_9noEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>10moEGB</strong></td>
+        <td>{{ pedagogical_form.PA_10moEGB_LEN }}</td>
+        <td>{{ pedagogical_form.PA_10moEGB_MAT }}</td>
+      </tr>
+      <tr>
+        <td><strong>TOTAL/PROMEDIO</strong></td>
+        <td>{{ pedagogical_form.PA_TOTAL_PROMEDIO_LEN }}</td>
+        <td>{{ pedagogical_form.PA_TOTAL_PROMEDIO_MAT }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+{% endfor %}
+
+{% for technical_form in object_technical_form %}
+  <h3 class="header">Formulario Técnico</h3>
+  <p><strong>Acción tomada: </strong>{{ technical_form.action_taken }}</p>
+  <p><strong>Observación: </strong>{{ technical_form.observation }}</p>
+  <p><strong>Actividades: </strong></p>
+  {% if technical_form.apci %}
+    <p>APCI</p>
+  {% endif %}
+  {% if technical_form.internet %}
+    <p>Internet</p>
+  {% endif %}
+  {% if technical_form.software %}
+    <p>Software</p>
+  {% endif %}
+  {% if technical_form.hardware %}
+    <p>Hardware</p>
+  {% endif %}
+  {% if technical_form.electrico %}
+    <p>Eléctrico</p>
+  {% endif %}
+  {% if technical_form.redes %}
+    <p>Redes</p>
+  {% endif %}
+  <hr>
+{% endfor %}
+
+<h3 class="header">Registro de actividad</h3>
 <p><strong>Creado por: </strong>{{ object.created_by }}</p>
 <p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
 {% if object.updated_by == None %}
@@ -23,4 +356,5 @@
 <p><strong>Fecha de modificación: </strong>{{ object.date_updated }}</p>
 {% endif %}
 <hr>
+
 {% endblock%}

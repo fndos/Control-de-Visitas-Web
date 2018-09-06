@@ -21,4 +21,7 @@ urlpatterns = [
     path('', views.login_redirect, name='login_redirect'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    ############################# PASSWORD RESET ###############################
+    #path('', include(('password_reset.urls', 'password_reset'), namespace='password_reset')),
+    path('', include('password_reset.urls')),
 ]

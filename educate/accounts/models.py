@@ -150,10 +150,6 @@ class Visit(models.Model):
     # Techo, Tutor, Tutor Leader, Tech Leader responsable de realizar la visita
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES)
-    # Pedagogical Form ID
-
-    # Technical Form ID
-
     # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
@@ -182,7 +178,6 @@ class Visit(models.Model):
 
     def delete(self):
         try:
-
             requirement = Requirement.objects.get(id=self.requirement.id)
             requirement.state = 1 # Estado Pendiente
             requirement.save()
@@ -194,35 +189,22 @@ class Visit(models.Model):
     class Meta:
         db_table = 'visit'
 
-class Activity(models.Model):
-    # Información General
-    name = models.CharField(max_length=100)
-    description = models.CharField(null=True, max_length=100)
-    # Campos de auditoria
-    is_active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100)
-    updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
-
-    def __str__(self):
-        return '{}'.format(self.name)
-
-    class Meta:
-        db_table = 'activity'
-
-
 class TechnicalForm(models.Model):
     # Type Choices
     STATE_TYPE_CHOICES = (
       (1, 'En progreso'),
       (2, 'Finalizado')
     )
-    #Información General
+    # Información General
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE, null=True)
-    action_taken = models.CharField(max_length=100)
+    action_taken = models.CharField(max_length=250)
     observation = models.TextField(null=True)
-    activity = models.ManyToManyField(Activity)
+    apci = models.NullBooleanField(null=False)
+    internet = models.NullBooleanField(null=False)
+    software = models.NullBooleanField(null=False)
+    hardware = models.NullBooleanField(null=False)
+    electrico = models.NullBooleanField(null=False)
+    redes = models.NullBooleanField(null=False)
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
     # Campos de auditoria
     created_by = models.CharField(max_length=100)
@@ -233,89 +215,14 @@ class TechnicalForm(models.Model):
     class Meta:
         db_table = 'technical_form'
 
-class DataApciAcademico(models.Model):
-    #Información General
-    no_prof_capacitados = models.IntegerField()
-    minutos_uso = models.IntegerField(null=True)
-    # Campos de auditoria
-    is_active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100)
-    updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
-
-    class Meta:
-        db_table = 'data_apci_academico'
-
-class NoLeccionesAprobadas(models.Model):
-    #Información General
-    data_apci_academico = models.ForeignKey(DataApciAcademico, on_delete=models.CASCADE)
-    curso_egb = models.CharField(max_length=30)
-    lenguaje = models.FloatField()
-    matematica = models.FloatField()
-    # Campos de auditoria
-    is_active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100)
-    updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
-
-    class Meta:
-        db_table = 'no_lecciones_aprobadas'
-
-class NoAlumnosIngresados(models.Model):
-    #Información General
-    data_apci_academico = models.ForeignKey(DataApciAcademico, on_delete=models.CASCADE)
-    curso_egb = models.CharField(max_length=30)
-    paralelo_a = models.FloatField()
-    paralelo_b = models.FloatField()
-    paralelo_c = models.FloatField()
-    total = models.FloatField()
-    # Campos de auditoria
-    is_active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100)
-    updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
-
-    class Meta:
-        db_table = 'no_alumnos_ingresados'
-
-class PromedioAcademico(models.Model):
-    #Información General
-    data_apci_academico = models.ForeignKey(DataApciAcademico, on_delete=models.CASCADE)
-    curso_egb = models.CharField(max_length=30)
-    lenguaje = models.FloatField()
-    matematica = models.FloatField()
-    # Campos de auditoria
-    is_active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100)
-    updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
-
-    class Meta:
-        db_table = 'promedio_academico'
-
-class NoAlumnosTrabajando(models.Model):
-    #Información General
-    data_apci_academico = models.ForeignKey(DataApciAcademico, on_delete=models.CASCADE)
-    curso_egb = models.CharField(max_length=30)
-    lenguaje = models.FloatField()
-    matematica = models.FloatField()
-    # Campos de auditoria
-    is_active = models.BooleanField(default=True)
-    created_by = models.CharField(max_length=100)
-    updated_by = models.CharField(null=True, max_length=100)
-    date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
-    date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
-
-    class Meta:
-        db_table = 'no_alumnos_trabajando'
-
 class PedagogicalForm(models.Model):
     # Type Choices
     INTERNET_TYPE_CHOICES = (
+      (1, 'No'),
+      (2, 'Si'),
+    )
+    # Type Choices
+    EXTRA_TYPE_CHOICES = (
       (1, 'No'),
       (2, 'Si'),
     )
@@ -324,13 +231,119 @@ class PedagogicalForm(models.Model):
       (1, 'En progreso'),
       (2, 'Finalizado')
     )
-    #Información General
+    # Información General
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE, null=True)
     visit_number = models.IntegerField()
-    extracurricular = models.TextField(null=True)
+    extracurricular = models.PositiveSmallIntegerField(null=True, choices=EXTRA_TYPE_CHOICES)
     internet = models.PositiveSmallIntegerField(null=True, choices=INTERNET_TYPE_CHOICES)
     action_taken = models.TextField()
-    data_apci_academico = models.ForeignKey(DataApciAcademico, on_delete=models.CASCADE, null=True)
+    # Información GRID-APCI
+    no_prof_capacitados = models.IntegerField()
+    minutos_uso = models.FloatField()
+    # ALUMNOS INGRESADOS
+    AI_2doEGB_A = models.FloatField()
+    AI_2doEGB_B = models.FloatField()
+    AI_2doEGB_C = models.FloatField()
+    AI_2doEGB_TOTAL = models.FloatField()
+    AI_3roEGB_A = models.FloatField()
+    AI_3roEGB_B = models.FloatField()
+    AI_3roEGB_C = models.FloatField()
+    AI_3roEGB_TOTAL = models.FloatField()
+    AI_4toEGB_A = models.FloatField()
+    AI_4toEGB_B = models.FloatField()
+    AI_4toEGB_C = models.FloatField()
+    AI_4toEGB_TOTAL = models.FloatField()
+    AI_5toEGB_A = models.FloatField()
+    AI_5toEGB_B = models.FloatField()
+    AI_5toEGB_C = models.FloatField()
+    AI_5toEGB_TOTAL = models.FloatField()
+    AI_6toEGB_A = models.FloatField()
+    AI_6toEGB_B = models.FloatField()
+    AI_6toEGB_C = models.FloatField()
+    AI_6toEGB_TOTAL = models.FloatField()
+    AI_7moEGB_A = models.FloatField()
+    AI_7moEGB_B = models.FloatField()
+    AI_7moEGB_C = models.FloatField()
+    AI_7moEGB_TOTAL = models.FloatField()
+    AI_8voEGB_A = models.FloatField()
+    AI_8voEGB_B = models.FloatField()
+    AI_8voEGB_C = models.FloatField()
+    AI_8voEGB_TOTAL = models.FloatField()
+    AI_9noEGB_A = models.FloatField()
+    AI_9noEGB_B = models.FloatField()
+    AI_9noEGB_C = models.FloatField()
+    AI_9noEGB_TOTAL = models.FloatField()
+    AI_10moEGB_A = models.FloatField()
+    AI_10moEGB_B = models.FloatField()
+    AI_10moEGB_C = models.FloatField()
+    AI_10moEGB_TOTAL = models.FloatField()
+    AI_TOTAL_PROMEDIO_A = models.FloatField()
+    AI_TOTAL_PROMEDIO_B = models.FloatField()
+    AI_TOTAL_PROMEDIO_C = models.FloatField()
+    AI_TOTAL_PROMEDIO_TOTAL = models.FloatField()
+    # ALUMNOS TRABAJANDO
+    AT_2doEGB_LEN = models.FloatField()
+    AT_2doEGB_MAT = models.FloatField()
+    AT_3roEGB_LEN = models.FloatField()
+    AT_3roEGB_MAT = models.FloatField()
+    AT_4toEGB_LEN = models.FloatField()
+    AT_4toEGB_MAT = models.FloatField()
+    AT_5toEGB_LEN = models.FloatField()
+    AT_5toEGB_MAT = models.FloatField()
+    AT_6toEGB_LEN = models.FloatField()
+    AT_6toEGB_MAT = models.FloatField()
+    AT_7moEGB_LEN = models.FloatField()
+    AT_7moEGB_MAT = models.FloatField()
+    AT_8voEGB_LEN = models.FloatField()
+    AT_8voEGB_MAT = models.FloatField()
+    AT_9noEGB_LEN = models.FloatField()
+    AT_9noEGB_MAT = models.FloatField()
+    AT_10moEGB_LEN = models.FloatField()
+    AT_10moEGB_MAT = models.FloatField()
+    AT_TOTAL_PROMEDIO_LEN = models.FloatField()
+    AT_TOTAL_PROMEDIO_MAT = models.FloatField()
+    # LECCIONES APROBADAS
+    LA_2doEGB_LEN = models.FloatField()
+    LA_2doEGB_MAT = models.FloatField()
+    LA_3roEGB_LEN = models.FloatField()
+    LA_3roEGB_MAT = models.FloatField()
+    LA_4toEGB_LEN = models.FloatField()
+    LA_4toEGB_MAT = models.FloatField()
+    LA_5toEGB_LEN = models.FloatField()
+    LA_5toEGB_MAT = models.FloatField()
+    LA_6toEGB_LEN = models.FloatField()
+    LA_6toEGB_MAT = models.FloatField()
+    LA_7moEGB_LEN = models.FloatField()
+    LA_7moEGB_MAT = models.FloatField()
+    LA_8voEGB_LEN = models.FloatField()
+    LA_8voEGB_MAT = models.FloatField()
+    LA_9noEGB_LEN = models.FloatField()
+    LA_9noEGB_MAT = models.FloatField()
+    LA_10moEGB_LEN = models.FloatField()
+    LA_10moEGB_MAT = models.FloatField()
+    LA_TOTAL_PROMEDIO_LEN = models.FloatField()
+    LA_TOTAL_PROMEDIO_MAT = models.FloatField()
+    # PROMEDIO ACADÉMICO
+    PA_2doEGB_LEN = models.FloatField()
+    PA_2doEGB_MAT = models.FloatField()
+    PA_3roEGB_LEN = models.FloatField()
+    PA_3roEGB_MAT = models.FloatField()
+    PA_4toEGB_LEN = models.FloatField()
+    PA_4toEGB_MAT = models.FloatField()
+    PA_5toEGB_LEN = models.FloatField()
+    PA_5toEGB_MAT = models.FloatField()
+    PA_6toEGB_LEN = models.FloatField()
+    PA_6toEGB_MAT = models.FloatField()
+    PA_7moEGB_LEN = models.FloatField()
+    PA_7moEGB_MAT = models.FloatField()
+    PA_8voEGB_LEN = models.FloatField()
+    PA_8voEGB_MAT = models.FloatField()
+    PA_9noEGB_LEN = models.FloatField()
+    PA_9noEGB_MAT = models.FloatField()
+    PA_10moEGB_LEN = models.FloatField()
+    PA_10moEGB_MAT = models.FloatField()
+    PA_TOTAL_PROMEDIO_LEN = models.FloatField()
+    PA_TOTAL_PROMEDIO_MAT = models.FloatField()
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
     # Campos de auditoria
     created_by = models.CharField(max_length=100)

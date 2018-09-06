@@ -9,6 +9,7 @@
   <hr>
 </div>
 
+<h3 class="header">Información General</h3>
 <p><strong>Cédula: </strong>{{ object.dni }}</p>
 <p><strong>Nombre: </strong>{{ object.first_name }}</p>
 <p><strong>Apellido: </strong>{{ object.last_name }}</p>
@@ -27,18 +28,18 @@
   Técnico Líder
   {% endif %}
 </p>
-<hr>
 
 {% if object.sector.all %}
 <p><strong>Sectores: </strong></p>
 {% for sector in object.sector.all %}
 <p>{{ sector.name }}</p>
 {% endfor %}
-<hr>
 {% else %}
 <!--No hay información-->
 {% endif %}
+<hr>
 
+<h3 class="header">Registro de actividad</h3>
 <p><strong>Creado por: </strong>{{ object.created_by }}</p>
 <p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
 {% if object.updated_by == None %}
