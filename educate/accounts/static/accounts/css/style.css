@@ -138,6 +138,10 @@ form > .btn {
 
 /*----------------------------- Data Tables ----------------------------------*/
 
+#my-table_wrapper {
+  margin-bottom: 10px !important;
+}
+
 thead, .dtr-title {
     font-weight: 600 !important;
     font-family: Helvetica;

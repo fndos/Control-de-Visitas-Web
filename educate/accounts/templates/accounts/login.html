@@ -17,8 +17,18 @@
             {{ field.label_tag }} <br> {{ field }}
         </div>
     {% endfor %}
+
     <button class="btn btn-default" type="submit" name="button">Iniciar Sesión</button>
   </form>
-  <p><a class="forget" href="#">¿Olvidaste la contraseña?</a></p>
+  <p><a class="forget" href="../../recover/">¿Olvidaste la contraseña?</a></p>
+
+  {% if form.non_field_errors %}
+    <ul class='form-errors'>
+      {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">Por favor, introduzca un nombre de usuario y clave correctos.</div>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
 </div>
 {% endblock %}

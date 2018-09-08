@@ -16,6 +16,19 @@ from ... models import Requirement, Visit, TechnicalForm, PedagogicalForm
 from ... forms import VisitCreateForm, VisitUpdateForm, RequirementCreateForm
 from ... decorators import tutor_leader_required
 
+@login_required
+def LoginRedirect(request):
+    user = request.user
+    args = {'test': user}
+    if user.user_type == 1: # tutor
+        return HttpResponseRedirect('/accounts/nr/planning/')
+    elif user.user_type == 2: # tech
+        return HttpResponseRedirect('/accounts/nt/planning/')
+    elif user.user_type == 3: # tutor_leader
+        return HttpResponseRedirect('/accounts/r/planning/')
+    elif user.user_type == 4: # tech_leader
+        return HttpResponseRedirect('/accounts/t/users/')
+
 ############################    Requirement    #################################
 
 @method_decorator([login_required, tutor_leader_required], name='dispatch')

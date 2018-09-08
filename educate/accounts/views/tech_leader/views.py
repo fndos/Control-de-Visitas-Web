@@ -7,27 +7,24 @@ from django.db import connection
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, TemplateView
 from django.views.generic.detail import DetailView
 from django.db.models import Q
+from django.contrib import messages
 
 from ... models import User, School, Requirement, Visit, Sector, TechnicalForm, PedagogicalForm
 from ... forms import UserForm, SchoolForm, RequirementForm, VisitForm, SectorForm
 from ... decorators import tech_leader_required
-from ..  tutor_leader.views import PlanningList
-from ..  tutor.views import PlanningList as PlanningListTutor
-from ..  tech.views import PlanningList as PlanningListTech
-
 
 @login_required
 def LoginRedirect(request):
     user = request.user
     args = {'test': user}
     if user.user_type == 1: # tutor
-        return PlanningListTutor.as_view()(request)
+        return HttpResponseRedirect('/accounts/nr/planning/')
     elif user.user_type == 2: # tech
-        return PlanningListTech.as_view()(request)
+        return HttpResponseRedirect('/accounts/nt/planning/')
     elif user.user_type == 3: # tutor_leader
-        return PlanningList.as_view()(request)
+        return HttpResponseRedirect('/accounts/r/planning/')
     elif user.user_type == 4: # tech_leader
-        return UserList.as_view()(request)
+        return HttpResponseRedirect('/accounts/t/users/')
 
 ##############################    User   #######################################
 

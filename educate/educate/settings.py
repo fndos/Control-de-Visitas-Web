@@ -140,4 +140,13 @@ LOGOUT_REDIRECT_URL = '/accounts/login'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 #LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+# During development only
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# On Production
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'deveducate50@gmail.com'
+EMAIL_HOST_PASSWORD = 'feducate2018'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Fundación Educate Team <noreply@example.com>'

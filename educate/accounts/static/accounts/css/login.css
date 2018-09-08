@@ -38,3 +38,8 @@ img, .fieldWrapper {
 .forget {
   margin-top: 10px !important;
 }
+
+.form-errors {
+  padding: 0px;
+  width: auto;
+}
