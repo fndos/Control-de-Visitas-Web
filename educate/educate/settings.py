@@ -149,4 +149,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'deveducate50@gmail.com'
 EMAIL_HOST_PASSWORD = 'feducate2018'
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Fundación Educate Team <noreply@example.com>'
+DEFAULT_FROM_EMAIL = 'Fundación Edúcate Team <noreply@example.com>'

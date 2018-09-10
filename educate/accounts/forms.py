@@ -88,7 +88,7 @@ class SchoolForm(forms.ModelForm):
             'reference': 'Referencia',
             'parish': 'Parroquia',
             'priority': 'Prioridad',
-            'sector': 'Zona',
+            'sector': 'Sector',
             'ambassador_in': 'Embajador IN',
             'workday': 'Jornada',
         }
@@ -276,7 +276,7 @@ class VisitUpdateTutorForm(forms.ModelForm):
         self.request = kwargs.pop('request')
         super(VisitUpdateTutorForm, self).__init__(*args, **kwargs)
         self.fields['user'] = forms.ModelChoiceField(
-            queryset=User.objects.filter(Q(id=self.request.user.id)), 
+            queryset=User.objects.filter(Q(id=self.request.user.id)),
             label='Responsable',
             widget=forms.Select(attrs={'class':'form-control'}),
         )

@@ -7,6 +7,7 @@
     <hr>
 </div>
 
+<h3 class="header">Información General</h3>
 <p><strong>ID: </strong>{{ object.id }}</p>
 <p><strong>Motivo: </strong>{{ object.reason }}</p>
 <p><strong>Escuela: </strong>{{ object.school }}</p>
@@ -33,6 +34,8 @@
   {% endif %}
 </p>
 <hr>
+
+<h3 class="header">Registro de actividad</h3>
 <p><strong>Creado por: </strong>{{ object.created_by }}</p>
 <p><strong>Fecha de creación: </strong>{{ object.date_joined }}</p>
 {% if object.updated_by == None %}

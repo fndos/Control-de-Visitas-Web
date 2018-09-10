@@ -37,8 +37,8 @@ class VisitShow(DetailView):
         context = super(VisitShow, self).get_context_data(**kwargs)
         try:
             #obtener información de los formularios
-            context['object_technical_form'] = TechnicalForm.objects.filter(Q(id=self.kwargs['pk']))
-            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            context['object_technical_form'] = TechnicalForm.objects.filter(Q(visit=self.kwargs['pk']))
+            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(visit=self.kwargs['pk']))
             print(context['object_pedagogical_form'])
         except TechnicalForm.DoesNotExist:
             context['object_technical_form'] = None

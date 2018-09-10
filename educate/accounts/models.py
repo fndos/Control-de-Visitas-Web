@@ -186,6 +186,9 @@ class Visit(models.Model):
 
         super(Visit, self).delete()
 
+    def __str__(self):
+        return '{}'.format(self.requirement)
+
     class Meta:
         db_table = 'visit'
 
