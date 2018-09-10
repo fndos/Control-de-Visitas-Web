@@ -59,6 +59,53 @@
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
+    <script type="text/javascript">
+      //Setup show & hide function for links
+      $('#my-link-1').click(function () {
+        if ($('#my-table-1').hasClass( "hidden" )) {
+          $('#my-table-1').removeClass("hidden");
+          $('#my-link-1').html('Mostrar menos');
+        } else {
+          $('#my-table-1').addClass("hidden");
+          $('#my-link-1').html('Mostrar más');
+        }
+      });
+
+      //Setup show & hide function for links
+      $('#my-link-2').click(function () {
+        if ($('#my-table-2').hasClass( "hidden" )) {
+          $('#my-table-2').removeClass("hidden");
+          $('#my-link-2').html('Mostrar menos');
+        } else {
+          $('#my-table-2').addClass("hidden");
+          $('#my-link-2').html('Mostrar más');
+        }
+      });
+
+      //Setup show & hide function for links
+      $('#my-link-3').click(function () {
+        if ($('#my-table-3').hasClass( "hidden" )) {
+          $('#my-table-3').removeClass("hidden");
+          $('#my-link-3').html('Mostrar menos');
+        } else {
+          $('#my-table-3').addClass("hidden");
+          $('#my-link-3').html('Mostrar más');
+        }
+      });
+
+      //Setup show & hide function for links
+      $('#my-link-4').click(function () {
+        if ($('#my-table-4').hasClass( "hidden" )) {
+          $('#my-table-4').removeClass("hidden");
+          $('#my-link-4').html('Mostrar menos');
+        } else {
+          $('#my-table-4').addClass("hidden");
+          $('#my-link-4').html('Mostrar más');
+        }
+      });
+    </script>
+
     <script src="{% static 'accounts/js/script.js' %}"></script>
     <script src="{% static 'accounts/js/sidebarNavigation.js' %}"></script>
     {% endblock %}

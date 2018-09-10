@@ -13,7 +13,7 @@
       <td>ID</td>
       <td>Nombre</td>
       <td>Creado por</td>
-      <td>Fecha de creación</td>
+      <!--<td>Fecha de creación</td>-->
       <td>Acciones</td>
     </tr>
   </thead>
@@ -23,7 +23,7 @@
       <td>{{ sector.id }}</td>
       <td>{{ sector.name }}</td>
       <td>{{ sector.created_by }}</td>
-      <td>{{ sector.date_joined }}</td>
+      <!--<td>{{ sector.date_joined }}</td>-->
       <td>
         <a class="btn btn-success" href="{% url 'accounts:sector_show' sector.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
         <a class="btn btn-primary" href="{% url 'accounts:sector_update' sector.id %}"><span class='glyphicon glyphicon-edit'></span></a>

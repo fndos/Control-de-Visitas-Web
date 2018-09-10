@@ -6,6 +6,39 @@ body {
   font-family: 'Muli';
 }
 
+a {
+  cursor: pointer;
+}
+
+.errorlist {
+  /*display: none !important;*/
+  color: red;
+}
+
+label.error {
+	color: red;
+	display: block;
+	font-weight: normal;
+  margin: auto;
+  margin-top: 5px;
+  font-family: 'Muli' !important;
+  font-size: 14px !important;
+  font-weight: normal !important;
+}
+
+input.error, select.error {
+  border: 1px dotted red;
+  margin: auto;
+}
+
+.helptext {
+  color: green;
+}
+
+#id_username {
+  margin-bottom: 5px;
+}
+
 nav {
   border-radius: 0 !important;
   background-color: #ffb347 !important;
