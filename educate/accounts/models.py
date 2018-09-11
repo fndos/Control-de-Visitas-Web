@@ -149,7 +149,7 @@ class Visit(models.Model):
     requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE, null=True)
     # Techo, Tutor, Tutor Leader, Tech Leader responsable de realizar la visita
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES)
+    state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
     # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
@@ -161,6 +161,7 @@ class Visit(models.Model):
             requirement = Requirement.objects.get(id=self.requirement.id)
             requirement.state = 2 # Estado Atendido
             requirement.save()
+
         except Exception as e:
             print (e)
 

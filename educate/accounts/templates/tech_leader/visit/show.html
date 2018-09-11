@@ -14,7 +14,27 @@
 <p><strong>Motivo: </strong>{{ object.requirement }}</p>
 <p><strong>Escuela: </strong>{{ object.requirement.school }}</p>
 <p><strong>Responsable: </strong>{{ object.user }}</p>
+<p>
+  <strong>Estado: </strong>
+  {% if object.state == 1 %}
+  Pendiente
+  {% elif object.state == 2 %}
+  Realizada
+  {% else %}
+  No Realizada
+  {% endif %}
+</p>
+{% if object.state == 2 %}
+<h3 class="sub-header">Check IN</h3>
+<p><strong>Fecha: </strong>{{ object.check_in }}</p>
+<p><strong>Coordenadas: </strong>{{ object.coordinates_lat_in }}, {{ object.coordinates_lon_in }}</p>
+<h3 class="sub-header">Check OUT</h3>
+<p><strong>Fecha: </strong>{{ object.date_planned }}</p>
+<p><strong>Coordenadas: </strong>{{ object.coordinates_lat_out }}, {{ object.coordinates_lon_out }}</p>
+{% endif %}
 <hr>
+
+
 
 <!--Caso particular: 1 - No, 2 - Si-->
 {% for pedagogical_form in object_pedagogical_form %}
