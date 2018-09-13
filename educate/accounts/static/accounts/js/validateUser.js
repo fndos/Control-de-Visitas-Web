@@ -33,7 +33,7 @@ $(document).ready(function () {
       username: {
         required: true,
         alphanumeric: true,
-        minlength: 5,
+        minlength: 4,
         maxlength: 30
       },
       password: {

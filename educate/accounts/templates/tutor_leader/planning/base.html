@@ -105,6 +105,7 @@
             {% endif %}
           }
         }).on('changeDate', function(e) {
+
           var value = e.date.getDate() + "/" + (e.date.getMonth()+1) + "/" + e.date.getFullYear();
           var date_planned = getTransform(value);
           $('#date_header').html(getFormatter(value));

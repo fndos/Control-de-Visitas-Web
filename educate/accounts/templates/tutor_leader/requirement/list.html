@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="section-title">
-  <a class="btn btn-default" href="#"><span class='glyphicon glyphicon-plus-sign'></span>&nbsp Nuevo Requerimiento </a>
+  <a class="btn btn-success" href="{% url 'accounts:requirement_create_tutor_leader' %}"><span class='glyphicon glyphicon-plus-sign'></span>&nbsp Nuevo Requerimiento </a>
   <hr>
 </div>
 
@@ -46,6 +46,8 @@
       </td>
       <td>
         <a class="btn btn-success" href="{% url 'accounts:requirement_show_tutor_leader' requirement.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
+        <a class="btn btn-primary" href="{% url 'accounts:requirement_update_tutor_leader' requirement.id %}"><span class='glyphicon glyphicon-edit'></span></a>
+        <a class="btn btn-danger" href="{% url 'accounts:requirement_delete_tutor_leader' requirement.id %}"><span class='glyphicon glyphicon-trash'></span></a>
       </td>
     </tr>
     {% endfor %}

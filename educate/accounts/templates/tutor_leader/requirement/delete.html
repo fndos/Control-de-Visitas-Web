@@ -1,0 +1,19 @@
+{% extends 'tutor_leader/requirement/base.html' %}
+
+{% block content %}
+
+<div class="section-title">
+  <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  <hr>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <p><strong>¿Quieres eliminar este requerimiento?</strong></p>
+  <p>{{ object.reason }} - {{object.school }}</p>
+  <p>Si eliminas este registro, no podrás recuperarlo.</p>
+  <hr>
+  <button class="btn btn-danger" type="submit"><span class='glyphicon glyphicon-trash'></span>&nbsp Eliminar</button>
+  <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-remove'></span>&nbsp Cancelar</a>
+</form>
+{% endblock%}

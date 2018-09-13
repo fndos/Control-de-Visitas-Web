@@ -13,7 +13,7 @@ from datetime import datetime
 import json
 
 from ... models import Requirement, Visit, TechnicalForm, PedagogicalForm
-from ... forms import VisitCreateTutorForm, VisitUpdateTutorForm, RequirementCreateForm
+from ... forms import VisitCreateTutorForm, VisitUpdateTutorForm, RequirementCreateForm, RequirementFormTutor
 from ... decorators import tutor_required
 
 @login_required
@@ -33,10 +33,15 @@ def LoginRedirect(request):
 
 @method_decorator([login_required, tutor_required], name='dispatch')
 class RequirementCreate(CreateView):
-    model = Visit
-    template_name = 'tutor/planning/form.html'
-    form_class = RequirementCreateForm
-    success_url = reverse_lazy('accounts:planning_visit_create_tutor')
+    model = Requirement
+    template_name = 'tutor/requirement/form.html'
+    form_class = RequirementFormTutor
+    success_url = reverse_lazy('accounts:requirement_list_tutor')
+
+    def get_form_kwargs(self):
+        kw = super(RequirementCreate, self).get_form_kwargs()
+        kw['request'] = self.request # the trick!
+        return kw
 
     def form_valid(self, form):
         form.instance.created_by = str(self.request.user)
@@ -58,25 +63,25 @@ class RequirementList(TemplateView):
 @method_decorator([login_required, tutor_required], name='dispatch')
 class RequirementUpdate(UpdateView):
     model = Requirement
-    form_class = RequirementCreateForm
-    template_name = 'tutor/planning/form.html'
+    form_class = RequirementFormTutor
+    template_name = 'tutor/requirement/form.html'
+    success_url = reverse_lazy('accounts:requirement_list_tutor')
 
-    def get_success_url(self):
-        visit = Visit.objects.get(requirement=self.kwargs['pk'])
-        return reverse_lazy('accounts:planning_visit_update_tutor', kwargs={'pk': visit.id})
-
-    def get_context_data(self, **kwargs):
-        context = super(RequirementUpdate, self).get_context_data(**kwargs)
-        try:
-            context['object_visit'] = Visit.objects.get(requirement__id=self.kwargs['pk'])
-        except Visit.DoesNotExist:
-            context['object_visit'] = None
-        return context
+    def get_form_kwargs(self):
+        kw = super(RequirementUpdate, self).get_form_kwargs()
+        kw['request'] = self.request # the trick!
+        return kw
 
     def form_valid(self, form):
         form.instance.updated_by = str(self.request.user)
         form.instance.user_id = self.request.user.id
         return super(RequirementUpdate, self).form_valid(form)
+
+@method_decorator([login_required, tutor_required], name='dispatch')
+class RequirementDelete(DeleteView):
+    model = Requirement
+    template_name = 'tutor/requirement/delete.html'
+    success_url = reverse_lazy('accounts:requirement_list_tutor')
 
 @method_decorator([login_required, tutor_required], name='dispatch')
 class RequirementShow(DetailView):
@@ -152,6 +157,23 @@ class VisitShow(DetailView):
 ############################    Planning    ####################################
 
 @method_decorator([login_required, tutor_required], name='dispatch')
+class PlanningCreate(CreateView):
+    model = Visit
+    template_name = 'tutor/planning/form.html'
+    form_class = RequirementCreateForm
+    success_url = reverse_lazy('accounts:planning_visit_create_tutor')
+
+    def get_form_kwargs(self):
+        kw = super(PlanningCreate, self).get_form_kwargs()
+        kw['request'] = self.request # the trick!
+        return kw
+
+    def form_valid(self, form):
+        form.instance.created_by = str(self.request.user)
+        form.instance.user_id = self.request.user.id
+        return super(PlanningCreate, self).form_valid(form)
+
+@method_decorator([login_required, tutor_required], name='dispatch')
 class PlanningList(TemplateView):
     template_name = 'tutor/planning/list.html'
 
@@ -171,6 +193,34 @@ class PlanningList(TemplateView):
             context['object_visit'] = None
             context['data'] = None
         return context
+
+@method_decorator([login_required, tutor_required], name='dispatch')
+class PlanningUpdate(UpdateView):
+    model = Requirement
+    form_class = RequirementCreateForm
+    template_name = 'tutor/planning/form.html'
+
+    def get_form_kwargs(self):
+        kw = super(PlanningUpdate, self).get_form_kwargs()
+        kw['request'] = self.request # the trick!
+        return kw
+
+    def get_success_url(self):
+        visit = Visit.objects.get(requirement=self.kwargs['pk'])
+        return reverse_lazy('accounts:planning_visit_update_tutor', kwargs={'pk': visit.id})
+
+    def get_context_data(self, **kwargs):
+        context = super(PlanningUpdate, self).get_context_data(**kwargs)
+        try:
+            context['object_visit'] = Visit.objects.get(requirement__id=self.kwargs['pk'])
+        except Visit.DoesNotExist:
+            context['object_visit'] = None
+        return context
+
+    def form_valid(self, form):
+        form.instance.updated_by = str(self.request.user)
+        form.instance.user_id = self.request.user.id
+        return super(PlanningUpdate, self).form_valid(form)
 
 @login_required
 def ItemUpdate(request):

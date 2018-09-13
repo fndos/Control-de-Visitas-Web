@@ -97,7 +97,7 @@ class Requirement(models.Model):
     REQUIREMENT_TYPE_CHOICES = ( # Null, visita pedagógica (Visita Pedagógica)
       (1, 'Periódica'), # Requerimiento creado por tech_leader (Visita Técnica)
       (2, 'Llamada'), # Requerimiento creado por el tech_leader (Visita Técnica)
-      #(3, 'Incidencia'), # Requerimiento creado por tutor o tutor_leader (Visita Técnica)
+      (3, 'Incidencia'), # Requerimiento creado por tutor o tutor_leader (Visita Técnica)
     )
     # Información General
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
@@ -188,7 +188,7 @@ class Visit(models.Model):
         super(Visit, self).delete()
 
     def __str__(self):
-        return '{}'.format(self.requirement)
+        return '{}'.format("ID ( " + str(self.id) + ") - " + str(self.date_planned) + " - " +str(self.requirement))
 
     class Meta:
         db_table = 'visit'
@@ -216,6 +216,9 @@ class TechnicalForm(models.Model):
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
+    def __str__(self):
+        return '{}'.format("ID ( " + str(self.id) + ") - " + str(self.visit.date_planned) + " - " +str(self.visit.requirement))
+
     class Meta:
         db_table = 'technical_form'
 
@@ -237,7 +240,6 @@ class PedagogicalForm(models.Model):
     )
     # Información General
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE, null=True)
-    visit_number = models.IntegerField()
     extracurricular = models.PositiveSmallIntegerField(null=True, choices=EXTRA_TYPE_CHOICES)
     internet = models.PositiveSmallIntegerField(null=True, choices=INTERNET_TYPE_CHOICES)
     action_taken = models.TextField()
@@ -354,6 +356,9 @@ class PedagogicalForm(models.Model):
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
+
+    def __str__(self):
+        return '{}'.format("ID ( " + str(self.id) + ") - " + str(self.visit.date_planned) + " - " +str(self.visit.requirement))
 
     class Meta:
         db_table = 'pedagogical_form'

@@ -23,28 +23,30 @@
   <tbody>
     <tr>
       {% for user in object_list %}
-      <td>{{ user.dni }}</td>
-      <td>{{ user.first_name }}</td>
-      <td>{{ user.last_name }}</td>
-      <td>{{ user.username }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.phone_number }}</td>
-      <td>
-        {% if user.user_type == 1 %}
-        Tutor
-        {% elif user.user_type == 2 %}
-        Técnico
-        {% elif user.user_type == 3 %}
-        Tutor Líder
-        {% else %}
-        Técnico Líder
+        {% if user.username != 'system' %}
+            <td>{{ user.dni }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone_number }}</td>
+            <td>
+                {% if user.user_type == 1 %}
+                Tutor
+                {% elif user.user_type == 2 %}
+                Técnico
+                {% elif user.user_type == 3 %}
+                Tutor Líder
+                {% else %}
+                Técnico Líder
+                {% endif %}
+            </td>
+            <td>
+                <a class="btn btn-success" href="{% url 'accounts:user_show' user.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
+                <a class="btn btn-primary" href="{% url 'accounts:user_update' user.id %}"><span class='glyphicon glyphicon-edit'></span></a>
+                <a class="btn btn-danger" href="{% url 'accounts:user_delete' user.id %}"><span class='glyphicon glyphicon-trash'></span></a>
+            </td>
         {% endif %}
-      </td>
-      <td>
-        <a class="btn btn-success" href="{% url 'accounts:user_show' user.id %}"><span class='glyphicon glyphicon-eye-open'></span></a>
-        <a class="btn btn-primary" href="{% url 'accounts:user_update' user.id %}"><span class='glyphicon glyphicon-edit'></span></a>
-        <a class="btn btn-danger" href="{% url 'accounts:user_delete' user.id %}"><span class='glyphicon glyphicon-trash'></span></a>
-      </td>
     </tr>
     {% endfor %}
   </tbody>
