@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'password_reset',
     'accounts',
+    'tastypie', # Modulo-Servicio-Web
+    'serviceweb', # Api-Servicio-Web
 ]
 
 MIDDLEWARE = [
