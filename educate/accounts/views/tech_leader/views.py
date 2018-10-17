@@ -11,23 +11,19 @@ from django.db.models import Q
 from ... models import User, School, Requirement, Visit, Sector, TechnicalForm, PedagogicalForm
 from ... forms import UserForm, SchoolForm, RequirementForm, VisitForm, SectorForm
 from ... decorators import tech_leader_required
-from ..  tutor_leader.views import PlanningList
-from ..  tutor.views import PlanningList as PlanningListTutor
-from ..  tech.views import PlanningList as PlanningListTech
-
 
 @login_required
 def LoginRedirect(request):
     user = request.user
     args = {'test': user}
     if user.user_type == 1: # tutor
-        return PlanningListTutor.as_view()(request)
+        return HttpResponseRedirect('/accounts/nr/planning/')
     elif user.user_type == 2: # tech
-        return PlanningListTech.as_view()(request)
+        return HttpResponseRedirect('/accounts/nt/planning/')
     elif user.user_type == 3: # tutor_leader
-        return PlanningList.as_view()(request)
+        return HttpResponseRedirect('/accounts/r/planning/')
     elif user.user_type == 4: # tech_leader
-        return UserList.as_view()(request)
+        return HttpResponseRedirect('/accounts/t/users/')
 
 ##############################    User   #######################################
 
@@ -208,8 +204,8 @@ class VisitShow(DetailView):
         context = super(VisitShow, self).get_context_data(**kwargs)
         try:
             #obtener información de los formularios
-            context['object_technical_form'] = TechnicalForm.objects.filter(Q(id=self.kwargs['pk']))
-            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            context['object_technical_form'] = TechnicalForm.objects.filter(Q(visit=self.kwargs['pk']))
+            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(visit=self.kwargs['pk']))
             print(context['object_pedagogical_form'])
         except TechnicalForm.DoesNotExist:
             context['object_technical_form'] = None

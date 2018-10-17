@@ -1,0 +1,22 @@
+{% extends 'tutor/requirement/base.html' %}
+
+{% block content %}
+
+<div class="section-title">
+  <a class="btn btn-default" href="{{request.META.HTTP_REFERER|escape }}"><span class='glyphicon glyphicon-chevron-left'></span>&nbsp Atrás</a>
+  <hr>
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <hr>
+  {% ifequal form.instance.pk None %}
+    <!--Create-->
+    <button class="btn btn-success" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar y salir</button>
+  {% else %}
+    <!--Update-->
+    <button class="btn btn-primary" type="submit"><span class='glyphicon glyphicon-ok'></span>&nbsp Guardar cambios y salir</button>
+  {% endifequal %}
+</form>
+{% endblock%}

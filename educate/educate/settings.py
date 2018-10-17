@@ -25,7 +25,7 @@ SECRET_KEY = 'ug3+0%ga2m#utc4-egju-2y#nvmne%lh%=$x0w7t!uq#n-h)3z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','deveducate.pythonanywhere.com']
 
 
 # Application definition
@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'phonenumber_field',
-    'password_reset',
-    'accounts',
+    'phonenumber_field', # Componente-Extra
+    'password_reset', # Componente-Extra
+    'accounts', # Aplicacion-Web
+    'tastypie', # Modulo-Servicio-Web
+    'serviceweb', # Api-Servicio-Web
+
 ]
 
 MIDDLEWARE = [
@@ -75,7 +78,7 @@ WSGI_APPLICATION = 'educate.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -84,6 +87,17 @@ DATABASES = {
         'PASSWORD': '1234',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
+    }
+}
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'deveducate$db_educate_v3',
+        'HOST': 'deveducate.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+        'USER': 'deveducate',
+        'PASSWORD': 'd3vUs3r#18',
     }
 }
 
@@ -118,7 +132,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -140,4 +154,13 @@ LOGOUT_REDIRECT_URL = '/accounts/login'
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 #LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
+# On Production
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'deveducate50@gmail.com'
+EMAIL_HOST_PASSWORD = 'feducate2018'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Fundación Edúcate Team <noreply@example.com>'
+

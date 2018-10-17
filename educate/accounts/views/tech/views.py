@@ -13,6 +13,19 @@ from ... models import User, School, Requirement, Visit, TechnicalForm, Pedagogi
 from ... forms import UserForm, SchoolForm, RequirementForm, VisitForm
 from ... decorators import tech_required
 
+@login_required
+def LoginRedirect(request):
+    user = request.user
+    args = {'test': user}
+    if user.user_type == 1: # tutor
+        return HttpResponseRedirect('/accounts/nr/planning/')
+    elif user.user_type == 2: # tech
+        return HttpResponseRedirect('/accounts/nt/planning/')
+    elif user.user_type == 3: # tutor_leader
+        return HttpResponseRedirect('/accounts/r/planning/')
+    elif user.user_type == 4: # tech_leader
+        return HttpResponseRedirect('/accounts/t/users/')
+
 ##############################    Visit    #####################################
 
 @method_decorator([login_required, tech_required], name='dispatch')
@@ -24,8 +37,8 @@ class VisitShow(DetailView):
         context = super(VisitShow, self).get_context_data(**kwargs)
         try:
             #obtener información de los formularios
-            context['object_technical_form'] = TechnicalForm.objects.filter(Q(id=self.kwargs['pk']))
-            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(id=self.kwargs['pk']))
+            context['object_technical_form'] = TechnicalForm.objects.filter(Q(visit=self.kwargs['pk']))
+            context['object_pedagogical_form'] = PedagogicalForm.objects.filter(Q(visit=self.kwargs['pk']))
             print(context['object_pedagogical_form'])
         except TechnicalForm.DoesNotExist:
             context['object_technical_form'] = None

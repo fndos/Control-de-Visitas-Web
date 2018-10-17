@@ -61,6 +61,30 @@ class School(models.Model):
       (1, 'No'),
       (2, 'Si'),
     )
+    # Type Choices
+    PARISH_TYPE_CHOICES = (
+      (1, 'Ayacucho'),
+      (2, 'Bolívar (Sagrario)'),
+      (3, 'Carbo (Concepción)'),
+      (4, 'Chongón'),
+      (5, 'Febres Cordero'),
+      (6, 'García Moreno'),
+      (7, 'Letamendi'),
+      (8, 'Nueve de Octubre'),
+      (9, 'Olmedo (San Alejo)'),
+      (10, 'Pascuales'),
+      (11, 'Roca'),
+      (12, 'Rocafuerte'),
+      (13, 'Sucre'),
+      (14, 'Tarqui'),
+      (15, 'Urdaneta'),
+      (16, 'Ximena'),
+      (17, 'Juan Gómez Rendón (Progreso)'),
+      (18, 'Puná'),
+      (19, 'Tenguel'),
+      (20, 'Posorja'),
+      (21, 'El Morro'),
+    )
     # Información General
     amie = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=100)
@@ -68,7 +92,7 @@ class School(models.Model):
     address = models.CharField(max_length=100)
     reference = models.CharField(max_length=100)
     workday = models.PositiveSmallIntegerField(null=True, choices=WORKDAY_TYPE_CHOICES)
-    parish = models.CharField(max_length=100)
+    parish = models.PositiveSmallIntegerField(null=True, choices=PARISH_TYPE_CHOICES)
     priority = models.PositiveSmallIntegerField(null=True, choices=PRIORITY_TYPE_CHOICES)
     ambassador_in = models.CharField(max_length=100)
     # Escuelas agrupadas por sectores o zonas
@@ -97,7 +121,7 @@ class Requirement(models.Model):
     REQUIREMENT_TYPE_CHOICES = ( # Null, visita pedagógica (Visita Pedagógica)
       (1, 'Periódica'), # Requerimiento creado por tech_leader (Visita Técnica)
       (2, 'Llamada'), # Requerimiento creado por el tech_leader (Visita Técnica)
-      #(3, 'Incidencia'), # Requerimiento creado por tutor o tutor_leader (Visita Técnica)
+      (3, 'Incidencia'), # Requerimiento creado por tutor o tutor_leader (Visita Técnica)
     )
     # Información General
     state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
@@ -149,7 +173,7 @@ class Visit(models.Model):
     requirement = models.ForeignKey(Requirement, on_delete=models.CASCADE, null=True)
     # Techo, Tutor, Tutor Leader, Tech Leader responsable de realizar la visita
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES)
+    state = models.PositiveSmallIntegerField(null=True, choices=STATE_TYPE_CHOICES, default=1)
     # Campos de auditoria
     created_by = models.CharField(max_length=100)
     updated_by = models.CharField(null=True, max_length=100)
@@ -161,6 +185,7 @@ class Visit(models.Model):
             requirement = Requirement.objects.get(id=self.requirement.id)
             requirement.state = 2 # Estado Atendido
             requirement.save()
+
         except Exception as e:
             print (e)
 
@@ -185,6 +210,9 @@ class Visit(models.Model):
             print (e)
 
         super(Visit, self).delete()
+
+    def __str__(self):
+        return '{}'.format("ID ( " + str(self.id) + ") - " + str(self.date_planned) + " - " +str(self.requirement))
 
     class Meta:
         db_table = 'visit'
@@ -212,6 +240,9 @@ class TechnicalForm(models.Model):
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
 
+    def __str__(self):
+        return '{}'.format("ID ( " + str(self.id) + ") - " + str(self.visit.date_planned) + " - " +str(self.visit.requirement))
+
     class Meta:
         db_table = 'technical_form'
 
@@ -233,7 +264,6 @@ class PedagogicalForm(models.Model):
     )
     # Información General
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE, null=True)
-    visit_number = models.IntegerField()
     extracurricular = models.PositiveSmallIntegerField(null=True, choices=EXTRA_TYPE_CHOICES)
     internet = models.PositiveSmallIntegerField(null=True, choices=INTERNET_TYPE_CHOICES)
     action_taken = models.TextField()
@@ -350,6 +380,9 @@ class PedagogicalForm(models.Model):
     updated_by = models.CharField(null=True, max_length=100)
     date_joined = models.DateTimeField(auto_now_add=True) # Fecha de creación
     date_updated = models.DateTimeField(auto_now=True) # Fecha de modificación
+
+    def __str__(self):
+        return '{}'.format("ID ( " + str(self.id) + ") - " + str(self.visit.date_planned) + " - " +str(self.visit.requirement))
 
     class Meta:
         db_table = 'pedagogical_form'

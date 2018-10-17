@@ -10,6 +10,15 @@
         <p class="item-code col col-lg-4 col-md-4 col-sm-4 col-xs-4 ">{{ visit.requirement.school.amie }}</p>
         <p class="item-name col col-lg-8 col-md-8 col-sm-8 col-xs-8">{{ visit.requirement.school }}</p>
         <p class="item-address col col-lg-12 col-md-12 col-sm-12 col-xs-12">{{ visit.requirement.school.address }}</p>
+        <p class="item-name col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          {% if visit.state == 1 %}
+          Pendiente
+          {% elif visit.state == 2 %}
+          Realizada
+          {% else %}
+          No Realizada
+          {% endif %}
+        </p>
       </div>
     </div>
   </a>

@@ -14,14 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path #, include
 from educate import views
+
+### SERVICEWEB
+from django.conf.urls import url, include
 
 urlpatterns = [
     path('', views.login_redirect, name='login_redirect'),
+
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-    ############################# PASSWORD RESET ###############################
+
+    ### PASSWORD RESET
     #path('', include(('password_reset.urls', 'password_reset'), namespace='password_reset')),
     path('', include('password_reset.urls')),
+    #url(r'recover/', include('password_reset.urls')),
+
+    ### SERVICEWEB
+    url(r'serviceweb/', include('serviceweb.urls')),
 ]
